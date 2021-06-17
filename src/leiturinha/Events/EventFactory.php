@@ -19,7 +19,7 @@ class EventFactory implements EventFactoryInterface
     {
         switch ($this->client) {
             case 'firehoseFb':
-                $this->resolveFirehoseFb($data)
+                $this->resolveFirehoseFb($data);
                 break;
         }
     }

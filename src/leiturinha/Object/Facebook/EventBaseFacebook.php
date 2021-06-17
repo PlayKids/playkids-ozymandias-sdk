@@ -1,6 +1,6 @@
 <?php
 
-namespace Leiturinha\Object;
+namespace Leiturinha\Object\Facebook;
 
 /**
  * Facebook Server Event Parameters
@@ -19,27 +19,27 @@ namespace Leiturinha\Object;
  */
 class EventBaseFacebook extends EventBase
 {
-    public $event_name
+    public $event_name;
 
-    public $event_time
+    public $event_time;
 
-    public $user_data
+    public $user_data;
 
-    public $custom_data
+    public $custom_data;
 
-    public $event_source_url
+    public $event_source_url;
 
-    public $opt_out
+    public $opt_out;
 
-    public $event_id
+    public $event_id;
 
-    public $action_source
+    public $action_source;
 
-    public $data_processing_options
+    public $data_processing_options;
 
-    public $data_processing_options_country
+    public $data_processing_options_country;
 
-    public $data_processing_options_state
+    public $data_processing_options_state;
 
     /**
      * Filter and validate

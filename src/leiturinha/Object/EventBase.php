@@ -6,18 +6,6 @@ use Leiturinha\Handler;
 
 abstract class EventBase
 {
-    /**
-     * Filter and validate
-     *
-     * @return void
-     */
-    abstract public function run();
-
-    /**
-     * Remove values empty or null
-     *
-     * @return void
-     */
     public function removeNulls()
     {
         foreach ($this as $key => $value) {
@@ -27,24 +15,8 @@ abstract class EventBase
         }
     }
 
-    /**
-     * Get array attributes
-     *
-     * @return void
-     */
-    public function getArray()
+    public function validate()
     {
-        return get_object_vars($this);
+        return true;
     }
-
-    /**
-     * Send event
-     *
-     * @return void
-     */
-    public function send()
-    {
-        return Handler::receiveData(json_encode($this->getArray()));
-    }
-
 }
