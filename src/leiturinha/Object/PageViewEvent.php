@@ -3,34 +3,26 @@ namespace Leiturinha\Object;
 /**
  * PageView Event object
  *
- * Salesforce
- * @property string $browser_string
+ * @property string $user_agent
  * @property string $email
  * @property string $channel
- * @property string $page
+ * @property string $page_name
+ * @property string $page_url
  *
  * @property string $utm_source
  * @property string $utm_medium
  * @property string $utm_campaign
- *
- * Facebook
- *
- * @property string $event_time
- * @property string $action_source
- * @property string $event_source_url
  */
 class PageViewEvent extends EventBase
 {
-    public $browser_string;
+    public $user_agent;
     public $email;
     public $channel;
-    public $page;
+    public $page_name;
+    public $page_url;
     public $utm_source;
     public $utm_medium;
     public $utm_campaign;
-    public $event_time;
-    public $action_source;
-    public $event_source_url;
 
     public function validate()
     {
