@@ -19,7 +19,7 @@ class FacebookEventMapper
 
         $facebookEvent = new PageViewEventFacebook();
         $facebookEvent->event_time = time();
-        $facebookEvent->event_source_url = $event->event_source_url;
+        $facebookEvent->page_url = $event->event_source_url;
 
         $facebookEvent->user_data = $userData;
         $facebookEvent->custom_data = $facebookEventData;
@@ -30,7 +30,20 @@ class FacebookEventMapper
     public static function fromAddPaymentInfoEvent(AddPaymentInfoEvent $event)
     {
         $facebookEventData = new AddPaymentInfoEventCustomData();
-        $facebookEvent = new AddPaymentInfoEventFacebook($facebookEventData);
+        $userData = new UserData();
+        $userData->email = $event->email;
+
+        $userData->phone = $event->user_data->phone;
+        $userData->last_name = $event->user_data->last_name;
+        $userData->first_name = $event->user_data->first_name;
+        $userData->country = $event->user_data->country;
+
+        $facebookEvent = new AddPaymentInfoEventFacebook();
+        $facebookEvent->event_time = time();
+        $facebookEvent->event_source_url = $event->page_url;
+
+        $facebookEvent->user_data = $userData;
+        $facebookEvent->custom_data = $facebookEventData;
 
         return $facebookEvent;
     }
