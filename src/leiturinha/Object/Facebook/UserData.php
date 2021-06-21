@@ -4,6 +4,7 @@ namespace Leiturinha\Object\Facebook;
 
 /**
  * Main User Data
+ * Need Hashing
  * @property string $em: email
  * @property string $ph: phone
  * @property string $ge: gender
@@ -14,15 +15,17 @@ namespace Leiturinha\Object\Facebook;
  * @property string $st: state
  * @property string $zp: zip
  * @property string $country: country
- * @property string $external_id: external_id - Hashing recommended
- * @property string $client_ip_address: client_ip_address - Do not hash
- * @property string $client_user_agent: client_user_agent - Do not hash - Required
+ * @property string $external_id: external_id
  *
- * @property string $fbc: click_id - Do not hash
- * @property string $fbp: browser_id - Do not hash
- * @property string $subscription_id: subscription_id - Do not hash
- * @property string $fb_login_id: facebook_login_id - Do not hash
- * @property string $lead_id: lead_id - Do not hash
+ * No Hashing required
+ * @property string $client_user_agent: client_user_agent - Required
+ * @property string $client_ip_address: client_ip_address
+ *
+ * @property string $fbc: click_id
+ * @property string $fbp: browser_id
+ * @property string $subscription_id: subscription_id
+ * @property string $fb_login_id: facebook_login_id
+ * @property string $lead_id: lead_id
  */
 class UserData
 {
@@ -65,7 +68,7 @@ class UserData
     public function validate()
     {
         if($this->em && !filter_var($this->em, FILTER_VALIDATE_EMAIL)) {
-            throw new \InvalidArgumentException('field user_data.email format invalid');
+            throw new \InvalidArgumentException('field email format invalid');
         }
         if($this->client_user_agent) {
             throw new \InvalidArgumentException('field user_data.client_user_agent is required for web events');
