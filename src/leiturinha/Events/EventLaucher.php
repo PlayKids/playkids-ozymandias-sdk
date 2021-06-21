@@ -3,6 +3,8 @@
 namespace Leiturinha\Events;
 
 use Leiturinha\Object\PageViewEvent;
+use Leiturinha\Mappers\FacebookEventMapper;
+
 use function Leiturinha\Mappers\FacebookEventMapper;
 
 class EventLaucher

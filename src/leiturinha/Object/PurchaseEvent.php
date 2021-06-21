@@ -4,7 +4,7 @@ namespace Leiturinha\Object;
 
 
 
-class PurchaseEventEvent extends EventBase
+class PurchaseEvent extends EventBase
 {
 
     public function validate()

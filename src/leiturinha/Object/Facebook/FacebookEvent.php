@@ -5,19 +5,16 @@ namespace Leiturinha\Object\Facebook;
 /**
  * Facebook Server Event Parameters
  *
- * @property string $event_name required
+ * @property EventName $event_name required
  * @property int $event_time UNIX timestamp required
- * @property UserDataFb $user_data required
+ * @property UserData $user_data required
  * @property EventCustomData $custom_data
  * @property string $event_source_url
  * @property bool $opt_out
  * @property string $event_id
- * @property string $action_source required
- * @property string $data_processing_options
- * @property string $data_processing_options_country
- * @property string $data_processing_options_state
+ * @property ActionSource $action_source required
  */
-class EventBaseFacebook extends EventBase
+class FacebookEvent
 {
     public $event_name;
 
@@ -35,20 +32,9 @@ class EventBaseFacebook extends EventBase
 
     public $action_source;
 
-    public $data_processing_options;
-
-    public $data_processing_options_country;
-
-    public $data_processing_options_state;
-
-    /**
-     * Filter and validate
-     *
-     * @return void
-     */
-    public function run()
+    public function validate()
     {
-        if(!$this->event_name || !$this->timestamp || !$this->user_data || !$this->action_source) {
+        if(!$this->event_name || !$this->timestamp || !$this->user_data || !$this->action_source || !$this->event_time) {
             throw new \InvalidArgumentException('field event required');
         }
         if(!filter_var($this->contact_key, FILTER_VALIDATE_EMAIL)) {
@@ -57,5 +43,4 @@ class EventBaseFacebook extends EventBase
 
         return $this;
     }
-
 }

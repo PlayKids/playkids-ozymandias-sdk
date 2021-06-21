@@ -4,6 +4,7 @@ namespace Leiturinha\Traits;
 
 use Aws\Kinesis\KinesisClient;
 use Aws\Exception\AwsException;
+use Leiturinha\Object\Platform;
 
 trait ManagesKinesis
 {
@@ -42,12 +43,21 @@ trait ManagesKinesis
      * @param $data
      * @return null
      */
-    protected function createRecord($data)
+    protected function createRecord($data, Platform $platform)
     {
+        $kinesisStreamName = "";
+        switch ($platform) {
+            case Platform::PLATFORM_FACEBOOK:
+                $kinesisStreamName = getenv('KINESIS_STREAM_NAME_FACEBOOK');
+                break;
+            case Platform::PLATFORM_SALESFORCE:
+                $kinesisStreamName = getenv('KINESIS_STREAM_NAME_SALESFORCE');
+                break;
+        }
         $output = $this->kinesisClient
             ->PutRecord([
                 'Data' => $data,
-                'StreamName' => getenv('KINESIS_STREAM_NAME'),
+                'StreamName' => $kinesisStreamName,
                 'PartitionKey' => (string) time()
             ]);
 

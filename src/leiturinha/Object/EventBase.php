@@ -2,8 +2,6 @@
 
 namespace Leiturinha\Object;
 
-use Leiturinha\Handler;
-
 abstract class EventBase
 {
     public function removeNulls()
@@ -17,6 +15,5 @@ abstract class EventBase
 
     public function validate()
     {
-        return true;
     }
 }

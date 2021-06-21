@@ -9,14 +9,4 @@ namespace Leiturinha\Object;
 class InitiateCheckoutEventCustomData extends EventCustomData
 {
 
-  /**
-   * Validate
-   *
-   * @return void
-   */
-  public function run()
-  {
-    return $this;
-  }
-
 }
