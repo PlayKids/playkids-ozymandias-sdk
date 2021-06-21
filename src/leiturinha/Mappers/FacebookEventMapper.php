@@ -81,11 +81,11 @@ class FacebookEventMapper
     private static function fromEvent(EventBase $event){
 
         $userData = new UserData();
-        $userData->email = $event->email;
-        $userData->phone = $event->user_data->phone;
-        $userData->last_name = $event->user_data->last_name;
-        $userData->first_name = $event->user_data->first_name;
-        $userData->country = $event->user_data->country;
+        $userData->em = hash('sha256', $event->email);
+        $userData->ph = hash('sha256', $event->user_data->phone);
+        $userData->ln = hash('sha256', $event->user_data->last_name);
+        $userData->fn = hash('sha256', $event->user_data->first_name);
+        $userData->country = hash('sha256', $event->user_data->country);
 
         $facebookEvent = new FacebookEvent();
         $facebookEvent->event_time = time();
