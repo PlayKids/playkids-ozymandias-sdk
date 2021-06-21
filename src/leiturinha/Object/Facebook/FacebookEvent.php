@@ -17,19 +17,12 @@ namespace Leiturinha\Object\Facebook;
 class FacebookEvent
 {
     public $event_name;
-
     public $event_time;
-
     public $user_data;
-
     public $custom_data;
-
     public $event_source_url;
-
     public $opt_out;
-
     public $event_id;
-
     public $action_source;
 
     public function validate()

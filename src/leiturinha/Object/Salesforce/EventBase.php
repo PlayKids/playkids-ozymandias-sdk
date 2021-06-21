@@ -1,6 +1,6 @@
 <?php
 
-namespace Leiturinha\Object;
+namespace Leiturinha\Object\Salesforce;
 
 use Leiturinha\Handler;
 

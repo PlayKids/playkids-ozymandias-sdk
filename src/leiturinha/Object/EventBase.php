@@ -2,8 +2,35 @@
 
 namespace Leiturinha\Object;
 
+/**
+ * EventBase Event object
+ *
+ * @property string $user_agent
+ * @property string $email
+ * @property string $page_name
+ * @property string $page_url
+ *
+ * @property string $utm_source
+ * @property string $utm_medium
+ * @property string $utm_campaign
+ *
+ * @property UserData $user_data
+ * @property SubscriptionData $subscription
+ */
+
 abstract class EventBase
 {
+    public $user_agent;
+    public $email;
+    public $page_name;
+    public $page_url;
+    public $utm_source;
+    public $utm_medium;
+    public $utm_campaign;
+
+    public $user_data;
+    public $subscription;
+
     public function removeNulls()
     {
         foreach ($this as $key => $value) {
@@ -15,5 +42,6 @@ abstract class EventBase
 
     public function validate()
     {
+
     }
 }

@@ -23,6 +23,10 @@ namespace Leiturinha\Object;
  * @property string $child_gender_1
  * @property string $child_birthday_1
  *
+ * @property string $child_name_2
+ * @property string $child_gender_2
+ * @property string $child_birthday_2
+ *
  * @property string $address
  * @property string $address_line_2
  * @property string $address_number
@@ -31,7 +35,7 @@ namespace Leiturinha\Object;
  * @property string $address_city
  * @property string $address_state
  */
-class SubscriptionData extends EventBase
+class SubscriptionData
 {
     public $id;
     public $shipping_price;
@@ -45,9 +49,14 @@ class SubscriptionData extends EventBase
     public $plan_duration;
     public $plan_price;
     public $pin;
+
     public $child_name_1;
     public $child_gender_1;
     public $child_birthday_1;
+    public $child_name_2;
+    public $child_gender_2;
+    public $child_birthday_2;
+
     public $address;
     public $address_line_2;
     public $address_number;
