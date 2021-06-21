@@ -42,6 +42,22 @@ abstract class EventBase
 
     public function validate()
     {
+        if(!$this->email || !$this->user_agent || !$this->page_name || !$this->page_url) {
+            throw new \InvalidArgumentException('field event required');
+        }
+        return $this;
+    }
 
+    public function toJson()
+    {
+        $clone = clone $this;
+
+        foreach ($clone as $key => $value) {
+            if(!$value) {
+                unset($clone->$key);
+            }
+        }
+
+        return json_encode($clone);
     }
 }
