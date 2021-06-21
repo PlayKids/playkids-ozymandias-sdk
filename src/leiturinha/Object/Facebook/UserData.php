@@ -4,45 +4,45 @@ namespace Leiturinha\Object\Facebook;
 
 /**
  * Main User Data
- * @property string $email: em
- * @property string $phone: ph
- * @property string $gender: ge
- * @property string $date_of_birth: db
- * @property string $last_name: ln
- * @property string $first_name: fn
- * @property string $city: ct
- * @property string $state: st
- * @property string $zip: zp
+ * @property string $em: email
+ * @property string $ph: phone
+ * @property string $ge: gender
+ * @property string $db: date_of_birth
+ * @property string $ln: last_name
+ * @property string $fn: first_name
+ * @property string $ct: city
+ * @property string $st: state
+ * @property string $zp: zip
  * @property string $country: country
  * @property string $external_id: external_id - Hashing recommended
  * @property string $client_ip_address: client_ip_address - Do not hash
  * @property string $client_user_agent: client_user_agent - Do not hash - Required
  *
- * @property string $click_id: fbc - Do not hash
- * @property string $browser_id: fbp - Do not hash
+ * @property string $fbc: click_id - Do not hash
+ * @property string $fbp: browser_id - Do not hash
  * @property string $subscription_id: subscription_id - Do not hash
- * @property string $facebook_login_id: fb_login_id - Do not hash
+ * @property string $fb_login_id: facebook_login_id - Do not hash
  * @property string $lead_id: lead_id - Do not hash
  */
 class UserData
 {
-    public $email;
+    public $em;
 
-    public $phone;
+    public $ph;
 
-    public $gender;
+    public $ge;
 
-    public $date_of_birth;
+    public $db;
 
-    public $last_name;
+    public $ln;
 
-    public $first_name;
+    public $fn;
 
-    public $city;
+    public $ct;
 
-    public $state;
+    public $st;
 
-    public $zip;
+    public $zp;
 
     public $country;
 
@@ -52,19 +52,19 @@ class UserData
 
     public $client_user_agent;
 
-    public $click_id;
+    public $fbc;
 
-    public $browser_id;
+    public $fbp;
 
     public $subscription_id;
 
-    public $facebook_login_id;
+    public $fb_login_id;
 
     public $lead_id;
 
     public function validate()
     {
-        if($this->email && !filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+        if($this->em && !filter_var($this->em, FILTER_VALIDATE_EMAIL)) {
             throw new \InvalidArgumentException('field user_data.email format invalid');
         }
         if($this->client_user_agent) {
