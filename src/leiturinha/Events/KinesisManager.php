@@ -6,16 +6,12 @@ use Aws\Kinesis\KinesisClient;
 use Aws\Exception\AwsException;
 use Leiturinha\Object\Platform;
 
-trait ManagesKinesis
+class KinesisManager
 {
     protected $kinesisClient;
 
-    /**
-     *
-     */
-    protected function createKinesisClient()
-    {
-        $this->kinesisClient = new KinesisClient([
+    function __construct() {
+        $this->kinesisClient = new KinesisManager([
             'version' => '2013-12-02',
             'region' => getenv('AWS_REGION'),
             'credentials' => [
@@ -27,23 +23,25 @@ trait ManagesKinesis
 
     /**
      * @param $data
+     * @param $platform
      */
-    protected function resolveKinesis($data)
+    public function addEvent($data, Platform $platform)
     {
         try {
-            // teste
-            $this->createKinesisClient();
-            $this->createRecord($data);
+            $this->createRecord($data, $platform);
+
         } catch (AwsException $exception) {
+            //TODO o que fazer em caso de erro ?
             echo $exception->getMessage();
         }
     }
 
     /**
      * @param $data
+     * @param $platform
      * @return null
      */
-    protected function createRecord($data, Platform $platform)
+    private function createRecord($data, Platform $platform)
     {
         $kinesisStreamName = "";
         switch ($platform) {

@@ -93,6 +93,10 @@ class FacebookEventMapper
 
         $facebookEvent->user_data = $userData;
 
+        //TODO removeNulls e validate deveriam estar aqui ??
+        $facebookEvent->removeNulls();
+        $facebookEvent->validate();
+
         return $facebookEvent;
     }
 

@@ -8,38 +8,50 @@ use Leiturinha\Object\InitiateCheckoutEvent;
 use Leiturinha\Object\PageViewEvent;
 use Leiturinha\Mappers\FacebookEventMapper;
 
+use Leiturinha\Object\Platform;
 use Leiturinha\Object\PurchaseEvent;
+use Leiturinha\Traits\KinesisManager;
 use function Leiturinha\Mappers\FacebookEventMapper;
 
 class EventLaucher
 {
     public static function firePageViewEvent(PageViewEvent $event){
 
+        $kinesisManager = new KinesisManager();
+
         $facebookEvent = FacebookEventMapper::fromPageView($event);
-        $facebookEvent->run();
+        $kinesisManager->addEvent(json_encode($facebookEvent), Platform::PLATFORM_FACEBOOK);
     }
 
     public static function fireAddPaymentInfoEvent(AddPaymentInfoEvent $event){
 
+        $kinesisManager = new KinesisManager();
+
         $facebookEvent = FacebookEventMapper::fromAddPaymentInfoEvent($event);
-        $facebookEvent->run();
+        $kinesisManager->addEvent(json_encode($facebookEvent), Platform::PLATFORM_FACEBOOK);
     }
 
     public static function fireAddToCartEvent(AddToCartEvent $event){
 
+        $kinesisManager = new KinesisManager();
+
         $facebookEvent = FacebookEventMapper::fromAddToCartEvent($event);
-        $facebookEvent->run();
+        $kinesisManager->addEvent(json_encode($facebookEvent), Platform::PLATFORM_FACEBOOK);
     }
 
     public static function fireInitiateCheckoutEvent(InitiateCheckoutEvent $event){
 
+        $kinesisManager = new KinesisManager();
+
         $facebookEvent = FacebookEventMapper::fromInitiateCheckoutEvent($event);
-        $facebookEvent->run();
+        $kinesisManager->addEvent(json_encode($facebookEvent), Platform::PLATFORM_FACEBOOK);
     }
 
     public static function firePurchaseEvent(PurchaseEvent $event){
 
+        $kinesisManager = new KinesisManager();
+
         $facebookEvent = FacebookEventMapper::fromPurchaseEvent($event);
-        $facebookEvent->run();
+        $kinesisManager->addEvent(json_encode($facebookEvent), Platform::PLATFORM_FACEBOOK);
     }
 }
