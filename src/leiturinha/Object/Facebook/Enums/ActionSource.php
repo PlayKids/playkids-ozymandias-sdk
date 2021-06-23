@@ -1,5 +1,5 @@
 <?php
-namespace Leiturinha\Object\Facebook;
+namespace Leiturinha\Object\Facebook\Enums;
 
 abstract class ActionSource
 {

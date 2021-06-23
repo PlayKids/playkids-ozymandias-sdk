@@ -7,7 +7,7 @@ use Leiturinha\Object\AddToCartEvent;
 use Leiturinha\Object\AddtoCartEventCustomData;
 use Leiturinha\Object\EventBase;
 use Leiturinha\Object\Facebook\AddPaymentInfoEventCustomData;
-use Leiturinha\Object\Facebook\EventName;
+use Leiturinha\Object\Facebook\Enums\EventName;
 use Leiturinha\Object\Facebook\FacebookEvent;
 use Leiturinha\Object\Facebook\PageViewEventCustomData;
 use Leiturinha\Object\Facebook\UserData;
@@ -82,10 +82,13 @@ class FacebookEventMapper
 
         $userData = new UserData();
         $userData->em = hash('sha256', $event->email);
-        $userData->ph = hash('sha256', $event->user_data->phone);
-        $userData->ln = hash('sha256', $event->user_data->last_name);
-        $userData->fn = hash('sha256', $event->user_data->first_name);
-        $userData->country = hash('sha256', $event->user_data->country);
+
+        if(!empty($event->user_data)){
+            $userData->ph = hash('sha256', $event->user_data->phone);
+            $userData->ln = hash('sha256', $event->user_data->last_name);
+            $userData->fn = hash('sha256', $event->user_data->first_name);
+            $userData->country = hash('sha256', $event->user_data->country);
+        }
 
         $facebookEvent = new FacebookEvent();
         $facebookEvent->event_time = time();
@@ -95,7 +98,8 @@ class FacebookEventMapper
 
         //TODO removeNulls e validate deveriam estar aqui ??
         $facebookEvent->removeNulls();
-        $facebookEvent->validate();
+        $facebookEvent->user_data->removeNulls();
+        //$facebookEvent->validate();
 
         return $facebookEvent;
     }
