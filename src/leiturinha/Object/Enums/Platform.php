@@ -1,5 +1,5 @@
 <?php
-namespace Leiturinha\Object;
+namespace Leiturinha\Object\Enums;
 
 abstract class Platform
 {
