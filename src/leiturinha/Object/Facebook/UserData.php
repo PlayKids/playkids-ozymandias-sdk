@@ -77,4 +77,13 @@ class UserData
         return $this;
     }
 
+    public function removeNulls()
+    {
+        foreach ($this as $key => $value) {
+            if(!$value) {
+                unset($this->$key);
+            }
+        }
+    }
+
 }

@@ -1,17 +1,17 @@
 <?php
 
-namespace Leiturinha\Traits;
+namespace Leiturinha\Events;
 
-use Aws\Kinesis\KinesisClient;
 use Aws\Exception\AwsException;
-use Leiturinha\Object\Platform;
+use Aws\Kinesis\KinesisClient;
+use Leiturinha\Object\Enums\Platform;
 
 class KinesisManager
 {
     protected $kinesisClient;
 
     function __construct() {
-        $this->kinesisClient = new KinesisManager([
+        $this->kinesisClient = new KinesisClient([
             'version' => '2013-12-02',
             'region' => getenv('AWS_REGION'),
             'credentials' => [
@@ -25,7 +25,7 @@ class KinesisManager
      * @param $data
      * @param $platform
      */
-    public function addEvent($data, Platform $platform)
+    public function addEvent($data, $platform)
     {
         try {
             $this->createRecord($data, $platform);
@@ -41,7 +41,7 @@ class KinesisManager
      * @param $platform
      * @return null
      */
-    private function createRecord($data, Platform $platform)
+    private function createRecord($data, $platform)
     {
         $kinesisStreamName = "";
         switch ($platform) {
