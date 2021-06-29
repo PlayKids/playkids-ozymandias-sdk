@@ -1,6 +1,8 @@
 <?php
 
-namespace Leiturinha\Object;
+namespace Leiturinha\Object\Facebook;
+
+use Leiturinha\Object\Facebook\EventCustomData;
 
 /**
  * Facebook Initiate Checkout Event - Custom Params

@@ -10,7 +10,6 @@ use Leiturinha\Object\PageViewEvent;
 use Leiturinha\Mappers\FacebookEventMapper;
 
 use Leiturinha\Object\PurchaseEvent;
-use function Leiturinha\Mappers\FacebookEventMapper;
 
 class EventLaucher
 {
@@ -20,7 +19,6 @@ class EventLaucher
 
         $facebookEvent = FacebookEventMapper::fromPageView($event);
         $facebookEvent->removeNulls();
-        //print_r(json_encode($facebookEvent));die;
         $kinesisManager->addEvent(json_encode($facebookEvent), Platform::PLATFORM_FACEBOOK);
     }
 
