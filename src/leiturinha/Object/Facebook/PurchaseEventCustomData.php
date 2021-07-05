@@ -1,6 +1,6 @@
 <?php
 
-namespace Leiturinha\Object;
+namespace Leiturinha\Object\Facebook;
 
 /**
  * Facebook Purchase Event - Custom Params

@@ -2,20 +2,21 @@
 
 namespace Leiturinha\Mappers;
 
+use Leiturinha\Object\EventBase;
 use Leiturinha\Object\AddPaymentInfoEvent;
 use Leiturinha\Object\AddToCartEvent;
-use Leiturinha\Object\AddtoCartEventCustomData;
-use Leiturinha\Object\EventBase;
-use Leiturinha\Object\Facebook\AddPaymentInfoEventCustomData;
-use Leiturinha\Object\Facebook\Enums\EventName;
-use Leiturinha\Object\Facebook\FacebookEvent;
-use Leiturinha\Object\Facebook\PageViewEventCustomData;
-use Leiturinha\Object\Facebook\InitiateCheckoutEventCustomData;
-use Leiturinha\Object\Facebook\UserData;
 use Leiturinha\Object\InitiateCheckoutEvent;
 use Leiturinha\Object\PageViewEvent;
 use Leiturinha\Object\PurchaseEvent;
-use Leiturinha\Object\PurchaseEventCustomData;
+
+use Leiturinha\Object\Facebook\FacebookEvent;
+use Leiturinha\Object\Facebook\Enums\EventName;
+use Leiturinha\Object\Facebook\PurchaseEventCustomData;
+use Leiturinha\Object\Facebook\AddtoCartEventCustomData;
+use Leiturinha\Object\Facebook\AddPaymentInfoEventCustomData;
+use Leiturinha\Object\Facebook\PageViewEventCustomData;
+use Leiturinha\Object\Facebook\InitiateCheckoutEventCustomData;
+use Leiturinha\Object\Facebook\UserData;
 
 class FacebookEventMapper
 {
@@ -77,17 +78,30 @@ class FacebookEventMapper
         return $facebookEvent;
     }
 
+    private static function normalizeHashString($str) {
+        if(!$str) return null;
 
-    private static function fromEvent(EventBase $event){
+        $normalizedString = str_replace( array( '\'', '"', ',' , ';', '<', '>', ' ', '(', ')', '-', '+' ), '', $str);
+        $normalizedString = strtolower($normalizedString);
+
+        return hash('sha256', $normalizedString);
+    }
+
+    private static function fromEvent(EventBase $event) {
 
         $userData = new UserData();
-        $userData->em = hash('sha256', $event->email);
+        $userData->em = FacebookEventMapper::normalizeHashString($event->email);
+
+        if(!$event->user_data->first_name && $event->user_data->name) {
+            $event->user_data->first_name = $event->user_data->name;
+        }
 
         if(!empty($event->user_data)){
-            $userData->ph = hash('sha256', $event->user_data->phone);
-            $userData->ln = hash('sha256', $event->user_data->last_name);
-            $userData->fn = hash('sha256', $event->user_data->first_name);
-            $userData->country = hash('sha256', $event->user_data->country);
+            $userData->ph = FacebookEventMapper::normalizeHashString($event->user_data->phone);
+            $userData->zp = FacebookEventMapper::normalizeHashString($event->user_data->zip);
+            $userData->ln = FacebookEventMapper::normalizeHashString($event->user_data->last_name);
+            $userData->fn = FacebookEventMapper::normalizeHashString($event->user_data->first_name);
+            $userData->country = FacebookEventMapper::normalizeHashString('BR');
         }
 
         $facebookEvent = new FacebookEvent();
