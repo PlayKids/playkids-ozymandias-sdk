@@ -2,4 +2,6 @@
 
 namespace Leiturinha\Object\Facebook;
 
-abstract class EventCustomData {}
+abstract class EventCustomData {
+    public function validate(){}
+}

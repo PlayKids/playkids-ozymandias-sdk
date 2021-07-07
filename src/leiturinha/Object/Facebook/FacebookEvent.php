@@ -2,6 +2,11 @@
 
 namespace Leiturinha\Object\Facebook;
 
+use Leiturinha\Object\AddPaymentInfoEvent;
+use Leiturinha\Object\AddToCartEvent;
+use Leiturinha\Object\InitiateCheckoutEvent;
+use Leiturinha\Object\PurchaseEvent;
+
 /**
  * Facebook Server Event Parameters
  *
@@ -27,11 +32,39 @@ class FacebookEvent
 
     public function validate()
     {
-        if(!$this->event_name || !$this->timestamp || !$this->user_data || !$this->action_source || !$this->event_time) {
-            throw new \InvalidArgumentException('field event required');
+        // TODO: move UserData validations to specific classes
+        if(isset($this->user_data)) {
+            if($this->custom_data instanceof InitiateCheckoutEvent) {
+                if(!isset($this->user_data->client_user_agent) || !isset($this->user_data->client_ip_address)) {
+                    throw new \InvalidArgumentException('client_user_agent and client_ip_address required');
+                }
+            }
+
+            else if($this->custom_data instanceof AddToCartEvent) {
+                if(!isset($this->user_data->em) || !isset($this->user_data->ph)) {
+                    throw new \InvalidArgumentException('client_user_agent and client_ip_address required');
+                }
+            }
+
+            else if($this->custom_data instanceof PurchaseEvent) {
+                if(!isset($this->user_data->em) || !isset($this->user_data->ph)) {
+                    throw new \InvalidArgumentException('client_user_agent and client_ip_address required');
+                }
+            }
+
+            else if($this->custom_data instanceof AddPaymentInfoEvent) {
+                if(!isset($this->user_data->em) || !isset($this->user_data->ph)) {
+                    throw new \InvalidArgumentException('client_user_agent and client_ip_address required');
+                }
+            }
         }
-        if(!filter_var($this->contact_key, FILTER_VALIDATE_EMAIL)) {
-            throw new \InvalidArgumentException('field contact_key must be an email');
+
+        if(isset($this->custom_data)) {
+            $this->custom_data->validate();
+        }
+
+        if(!$this->event_name || !$this->event_time || !$this->event_source_url) {
+            throw new \InvalidArgumentException('field event required');
         }
 
         return $this;

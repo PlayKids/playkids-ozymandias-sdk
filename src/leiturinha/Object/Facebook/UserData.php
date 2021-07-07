@@ -2,6 +2,8 @@
 
 namespace Leiturinha\Object\Facebook;
 
+use Leiturinha\Object\UserData as ObjectUserData;
+
 /**
  * Main User Data
  * Need Hashing
@@ -65,6 +67,36 @@ class UserData
 
     public $lead_id;
 
+    function __construct(string $email, ?ObjectUserData $eventData) {
+        if(!isset($email)) return;
+
+        $this->em = $this->normalizeHashString($email);
+
+        $this->client_user_agent = $_SERVER['HTTP_USER_AGENT'];
+        $this->client_ip_address = $_SERVER['REMOTE_ADDR'];
+
+        if(!$eventData->first_name && $eventData->name) {
+            $eventData->first_name = $eventData->name;
+        }
+
+        if(!empty($eventData)){
+            $this->ph = $this->normalizeHashString($eventData->phone);
+            $this->zp = $this->normalizeHashString($eventData->zip);
+            $this->ln = $this->normalizeHashString($eventData->last_name);
+            $this->fn = $this->normalizeHashString($eventData->first_name);
+            $this->country = $this->normalizeHashString('BR');
+        }
+    }
+
+    private static function normalizeHashString($str) {
+        if(!$str) return null;
+
+        $normalizedString = str_replace( array( '\'', '"', ',' , ';', '<', '>', ' ', '(', ')', '-', '+' ), '', $str);
+        $normalizedString = strtolower($normalizedString);
+
+        return hash('sha256', $normalizedString);
+    }
+
     public function validate()
     {
         if($this->em && !filter_var($this->em, FILTER_VALIDATE_EMAIL)) {
@@ -85,5 +117,4 @@ class UserData
             }
         }
     }
-
 }

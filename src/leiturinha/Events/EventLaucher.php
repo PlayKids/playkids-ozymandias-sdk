@@ -23,11 +23,11 @@ class EventLaucher
     }
 
     public static function fireAddPaymentInfoEvent(AddPaymentInfoEvent $event){
-
         $kinesisManager = new KinesisManager();
 
         $facebookEvent = FacebookEventMapper::fromAddPaymentInfoEvent($event);
         $facebookEvent->removeNulls();
+        $facebookEvent->validate();
         $kinesisManager->addEvent(json_encode($facebookEvent), Platform::PLATFORM_FACEBOOK);
     }
 
@@ -37,6 +37,7 @@ class EventLaucher
 
         $facebookEvent = FacebookEventMapper::fromAddToCartEvent($event);
         $facebookEvent->removeNulls();
+        $facebookEvent->validate();
         $kinesisManager->addEvent(json_encode($facebookEvent), Platform::PLATFORM_FACEBOOK);
     }
 
@@ -46,6 +47,7 @@ class EventLaucher
 
         $facebookEvent = FacebookEventMapper::fromInitiateCheckoutEvent($event);
         $facebookEvent->removeNulls();
+        $facebookEvent->validate();
         $kinesisManager->addEvent(json_encode($facebookEvent), Platform::PLATFORM_FACEBOOK);
     }
 
@@ -55,6 +57,7 @@ class EventLaucher
 
         $facebookEvent = FacebookEventMapper::fromPurchaseEvent($event);
         $facebookEvent->removeNulls();
+        $facebookEvent->validate();
         $kinesisManager->addEvent(json_encode($facebookEvent), Platform::PLATFORM_FACEBOOK);
     }
 }

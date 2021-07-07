@@ -11,6 +11,7 @@ use Leiturinha\Object\PurchaseEvent;
 
 use Leiturinha\Object\Facebook\FacebookEvent;
 use Leiturinha\Object\Facebook\Enums\EventName;
+use Leiturinha\Object\Facebook\Enums\ActionSource;
 use Leiturinha\Object\Facebook\PurchaseEventCustomData;
 use Leiturinha\Object\Facebook\AddtoCartEventCustomData;
 use Leiturinha\Object\Facebook\AddPaymentInfoEventCustomData;
@@ -69,7 +70,7 @@ class FacebookEventMapper
     {
         $customData = new PurchaseEventCustomData();
         $customData->value = $event->value;
-        $customData->currency = $event->currency;
+        $customData->currency = isset($event->currency) ? $event->currency : "BRL";
 
         $facebookEvent = FacebookEventMapper::fromEvent($event);
         $facebookEvent->event_name = EventName::PURCHASE;
@@ -78,34 +79,12 @@ class FacebookEventMapper
         return $facebookEvent;
     }
 
-    private static function normalizeHashString($str) {
-        if(!$str) return null;
-
-        $normalizedString = str_replace( array( '\'', '"', ',' , ';', '<', '>', ' ', '(', ')', '-', '+' ), '', $str);
-        $normalizedString = strtolower($normalizedString);
-
-        return hash('sha256', $normalizedString);
-    }
-
     private static function fromEvent(EventBase $event) {
-
-        $userData = new UserData();
-        $userData->em = FacebookEventMapper::normalizeHashString($event->email);
-
-        if(!$event->user_data->first_name && $event->user_data->name) {
-            $event->user_data->first_name = $event->user_data->name;
-        }
-
-        if(!empty($event->user_data)){
-            $userData->ph = FacebookEventMapper::normalizeHashString($event->user_data->phone);
-            $userData->zp = FacebookEventMapper::normalizeHashString($event->user_data->zip);
-            $userData->ln = FacebookEventMapper::normalizeHashString($event->user_data->last_name);
-            $userData->fn = FacebookEventMapper::normalizeHashString($event->user_data->first_name);
-            $userData->country = FacebookEventMapper::normalizeHashString('BR');
-        }
+        $userData = new UserData($event->email, $event->user_data);
 
         $facebookEvent = new FacebookEvent();
         $facebookEvent->event_time = time();
+        $facebookEvent->action_source = ActionSource::WEBSITE;
         $facebookEvent->event_source_url = $event->page_url;
 
         $facebookEvent->user_data = $userData;
