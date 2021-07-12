@@ -81,7 +81,7 @@ class UserData
 
         if(!empty($eventData)){
             $this->ph = $this->normalizeHashString($eventData->phone);
-            $this->zp = $this->normalizeHashString($eventData->zip);
+            $this->zp = $this->normalizeHashString($eventData->zipcode);
             $this->ln = $this->normalizeHashString($eventData->last_name);
             $this->fn = $this->normalizeHashString($eventData->first_name);
             $this->country = $this->normalizeHashString('BR');
