@@ -1,6 +1,6 @@
 <?php
 
-namespace Leiturinha\Object;
+namespace Leiturinha\Object\Facebook;
 
 /**
  * Facebook Purchase Event - Custom Params
@@ -21,7 +21,7 @@ class PurchaseEventCustomData extends EventCustomData
    *
    * @return void
    */
-  public function run()
+  public function validate()
   {
       if(!$this->value || !$this->currency) {
           throw new \InvalidArgumentException('the field value and currency are required');

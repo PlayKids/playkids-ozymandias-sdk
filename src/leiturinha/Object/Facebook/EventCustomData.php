@@ -1,5 +1,7 @@
 <?php
 
-namespace Leiturinha\Object;
+namespace Leiturinha\Object\Facebook;
 
-abstract class EventCustomData {}
+abstract class EventCustomData {
+    public function validate(){}
+}

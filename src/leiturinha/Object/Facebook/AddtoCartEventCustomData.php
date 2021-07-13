@@ -1,22 +1,10 @@
 <?php
 
-namespace Leiturinha\Object;
+namespace Leiturinha\Object\Facebook;
 
-/**
- * Facebook Add Payment Info Event - Custom Params
- */
+use Leiturinha\Object\Facebook\EventCustomData;
 
 class AddtoCartEventCustomData extends EventCustomData
 {
-
-  /**
-   * Validate
-   *
-   * @return void
-   */
-  public function run()
-  {
-    return $this;
-  }
 
 }

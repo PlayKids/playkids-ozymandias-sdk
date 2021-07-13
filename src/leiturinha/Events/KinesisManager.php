@@ -1,19 +1,16 @@
 <?php
 
-namespace Leiturinha\Traits;
+namespace Leiturinha\Events;
 
-use Aws\Kinesis\KinesisClient;
 use Aws\Exception\AwsException;
+use Aws\Kinesis\KinesisClient;
+use Leiturinha\Object\Enums\Platform;
 
-trait ManagesKinesis
+class KinesisManager
 {
     protected $kinesisClient;
 
-    /**
-     *
-     */
-    protected function createKinesisClient()
-    {
+    function __construct() {
         $this->kinesisClient = new KinesisClient([
             'version' => '2013-12-02',
             'region' => getenv('AWS_REGION'),
@@ -26,28 +23,39 @@ trait ManagesKinesis
 
     /**
      * @param $data
+     * @param $platform
      */
-    protected function resolveKinesis($data)
+    public function addEvent($data, $platform)
     {
         try {
-            // teste
-            $this->createKinesisClient();
-            $this->createRecord($data);
+            $this->createRecord($data, $platform);
+
         } catch (AwsException $exception) {
+            //TODO o que fazer em caso de erro ?
             echo $exception->getMessage();
         }
     }
 
     /**
      * @param $data
+     * @param $platform
      * @return null
      */
-    protected function createRecord($data)
+    private function createRecord($data, $platform)
     {
+        $kinesisStreamName = "";
+        switch ($platform) {
+            case Platform::PLATFORM_FACEBOOK:
+                $kinesisStreamName = getenv('KINESIS_STREAM_NAME_FACEBOOK');
+                break;
+            case Platform::PLATFORM_SALESFORCE:
+                $kinesisStreamName = getenv('KINESIS_STREAM_NAME_SALESFORCE');
+                break;
+        }
         $output = $this->kinesisClient
             ->PutRecord([
                 'Data' => $data,
-                'StreamName' => getenv('KINESIS_STREAM_NAME'),
+                'StreamName' => $kinesisStreamName,
                 'PartitionKey' => (string) time()
             ]);
 

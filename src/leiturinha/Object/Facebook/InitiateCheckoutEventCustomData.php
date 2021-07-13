@@ -1,6 +1,8 @@
 <?php
 
-namespace Leiturinha\Object;
+namespace Leiturinha\Object\Facebook;
+
+use Leiturinha\Object\Facebook\EventCustomData;
 
 /**
  * Facebook Initiate Checkout Event - Custom Params
@@ -8,15 +10,5 @@ namespace Leiturinha\Object;
 
 class InitiateCheckoutEventCustomData extends EventCustomData
 {
-
-  /**
-   * Validate
-   *
-   * @return void
-   */
-  public function run()
-  {
-    return $this;
-  }
 
 }
