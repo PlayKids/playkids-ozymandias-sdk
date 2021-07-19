@@ -86,6 +86,7 @@ class FacebookEventMapper
         $facebookEvent->event_time = time();
         $facebookEvent->action_source = ActionSource::WEBSITE;
         $facebookEvent->event_source_url = $event->page_url;
+        $facebookEvent->event_id = $event->event_id;
 
         $facebookEvent->user_data = $userData;
 

@@ -20,6 +20,7 @@ namespace Leiturinha\Object;
 
 abstract class EventBase
 {
+    public $event_id;
     public $user_agent;
     public $email;
     public $page_name;
