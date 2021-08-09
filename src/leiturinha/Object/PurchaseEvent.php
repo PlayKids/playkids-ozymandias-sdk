@@ -14,9 +14,9 @@ class PurchaseEvent extends EventBase
     public $value;
     public $currency;
 
+
     public function validate()
     {
         return true;
     }
 }
-

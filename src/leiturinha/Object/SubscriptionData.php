@@ -53,9 +53,11 @@ class SubscriptionData
     public $child_name_1;
     public $child_gender_1;
     public $child_birthday_1;
+    public $child_didactic_age_1;
     public $child_name_2;
     public $child_gender_2;
     public $child_birthday_2;
+    public $child_didactic_age_2;
 
     public $address;
     public $address_line_2;
@@ -64,6 +66,12 @@ class SubscriptionData
     public $address_reference;
     public $address_city;
     public $address_state;
+
+    public $invoices_paid;
+    public $first_payment;
+    public $last_payment;
+    public $canceled_at;
+    public $canceled_reason;
 
     public function validate()
     {
