@@ -1,6 +1,6 @@
 <?php
 
-namespace Leiturinha\Object\Facebook;
+namespace Leiturinha\Object\Ozymandias;
 
 use Leiturinha\Object\UserData as ObjectUserData;
 
@@ -26,7 +26,7 @@ use Leiturinha\Object\UserData as ObjectUserData;
  * @property string $fbc: click_id
  * @property string $fbp: browser_id
  * @property string $subscription_id: subscription_id
- * @property string $fb_login_id: facebook_login_id
+ * @property string $fb_login_id: ozymandias_login_id
  * @property string $lead_id: lead_id
  */
 class UserData
@@ -68,40 +68,22 @@ class UserData
     public $lead_id;
 
     function __construct(string $email, ?ObjectUserData $eventData) {
-        if(!isset($email)) return;
+        //if(!isset($email)) return;
 
-        $this->em = $this->normalizeHashString($email);
+        //$this->em = $this->normalizeHashString($email);
 
-        $this->client_user_agent = $_SERVER['HTTP_USER_AGENT'];
-        $this->client_ip_address = $_SERVER['REMOTE_ADDR'];
+        // //$this->client_user_agent = $_SERVER['HTTP_USER_AGENT'];
+        // $this->browser_string = $_SERVER['HTTP_USER_AGENT'];
+        // $this->client_ip_address = $_SERVER['REMOTE_ADDR'];
 
-        if(!$eventData->first_name && $eventData->name) {
-            $eventData->first_name = $eventData->name;
-        }
+        // if(!$eventData->first_name && $eventData->name) {
+        //     $eventData->first_name = $eventData->name;
+        // }
 
-        if(!empty($eventData)){
-            $this->ph = $this->normalizeHashString($eventData->phone);
-            $this->zp = $this->normalizeHashString($eventData->zipcode);
-            $this->ln = $this->normalizeHashString($eventData->last_name);
-            $this->fn = $this->normalizeHashString($eventData->first_name);
-            $this->country = $this->normalizeHashString('BR');
-        }
-    }
-
-    private static function normalizeHashString($str) {
-        if(!$str) return null;
-
-        $normalizedString = str_replace( array( '\'', '"', ',' , ';', '<', '>', ' ', '(', ')', '-', '+' ), '', $str);
-        $normalizedString = strtolower($normalizedString);
-
-        return hash('sha256', $normalizedString);
     }
 
     public function validate()
     {
-        if($this->em && !filter_var($this->em, FILTER_VALIDATE_EMAIL)) {
-            throw new \InvalidArgumentException('field email format invalid');
-        }
         if($this->client_user_agent) {
             throw new \InvalidArgumentException('field user_data.client_user_agent is required for web events');
         }

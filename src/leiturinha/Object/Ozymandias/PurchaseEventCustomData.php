@@ -1,18 +1,18 @@
 <?php
 
-namespace Leiturinha\Object\Facebook;
+namespace Leiturinha\Object\Ozymandias;
 
 /**
- * Facebook Purchase Event - Custom Params
+ * Ozymandias Purchase Event - Custom Params
  *
- * @property string $value required
+ * @property string $plan_price required
  * @property string $currency required
  */
 
 class PurchaseEventCustomData extends EventCustomData
 {
 
-  public $value;
+  public $plan_price;
 
   public $currency;
 
@@ -23,7 +23,7 @@ class PurchaseEventCustomData extends EventCustomData
    */
   public function validate()
   {
-      if(!$this->value || !$this->currency) {
+      if(!$this->plan_price || !$this->currency) {
           throw new \InvalidArgumentException('the field value and currency are required');
       }
 

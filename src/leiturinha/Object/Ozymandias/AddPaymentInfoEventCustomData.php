@@ -1,6 +1,6 @@
 <?php
 
-namespace Leiturinha\Object\Facebook;
+namespace Leiturinha\Object\Ozymandias;
 
 class AddPaymentInfoEventCustomData extends EventCustomData
 {
