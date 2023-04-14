@@ -12,6 +12,7 @@ use Leiturinha\Object\SimpleLeadRegisteredEvent;
 use Leiturinha\Object\LoginEvent;
 use Leiturinha\Object\PageViewEvent;
 use Leiturinha\Object\AmbassadorInitiatedEvent;
+use Leiturinha\Object\PurchaseEvent;
 
 use Leiturinha\Object\SubscriptionPaidEvent;
 use Leiturinha\Object\SubscriptionRefundEvent;
@@ -32,7 +33,6 @@ use Leiturinha\Object\SignedLettersPlanEvent;
 use Leiturinha\Object\Enums\Platform;
 use Leiturinha\Mappers\OzymandiasEventMapper;
 
-use Leiturinha\Object\PurchaseEvent;
 
 class EventLaucher
 {
@@ -44,7 +44,7 @@ class EventLaucher
         $ozymandiasEvent = OzymandiasEventMapper::fromCallcenterContactEvent($event);
         //$ozymandiasEvent->removeNulls();
         $ozymandiasEvent->validate();
-        $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
+        return $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
     }
 
     public static function firePageViewEvent(PageViewEvent $event){
@@ -62,7 +62,7 @@ class EventLaucher
 
         $ozymandiasEvent = OzymandiasEventMapper::fromPageView($event);
         //$ozymandiasEvent->removeNulls();
-        $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
+        return $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
     }
 
     public static function fireAddPaymentInfoEvent(AddPaymentInfoEvent $event){
@@ -72,7 +72,7 @@ class EventLaucher
         $ozymandiasEvent = OzymandiasEventMapper::fromAddPaymentInfoEvent($event);
         //$ozymandiasEvent->removeNulls();
         $ozymandiasEvent->validate();
-        $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
+        return $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
     }
 
     public static function fireAddToCartEvent(AddToCartEvent $event){
@@ -82,7 +82,7 @@ class EventLaucher
         $ozymandiasEvent = OzymandiasEventMapper::fromAddToCartEvent($event);
         //$ozymandiasEvent->removeNulls();
         $ozymandiasEvent->validate();
-        $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
+        return $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
     }
 
     public static function fireInitiateCheckoutEvent(InitiateCheckoutEvent $event){
@@ -92,7 +92,7 @@ class EventLaucher
         $ozymandiasEvent = OzymandiasEventMapper::fromInitiateCheckoutEvent($event);
         //$ozymandiasEvent->removeNulls();
         $ozymandiasEvent->validate();
-        $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
+        return $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
     }
 
     // Documentation about ....
@@ -103,7 +103,7 @@ class EventLaucher
         $ozymandiasEvent = OzymandiasEventMapper::fromPurchaseEvent($event);
         //$ozymandiasEvent->removeNulls();
         $ozymandiasEvent->validate();
-        $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
+        return $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
     }
 
     public static function fireChildrenRegisterEvent(ChildrenRegisterEvent $event){
@@ -113,7 +113,7 @@ class EventLaucher
         $ozymandiasEvent = OzymandiasEventMapper::fromChildrenRegisterEvent($event);
         //$ozymandiasEvent->removeNulls();
         $ozymandiasEvent->validate();
-        $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
+        return $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
     }
 
     public static function fireUserRegisterEvent(UserRegisterEvent $event){
@@ -123,7 +123,7 @@ class EventLaucher
         $ozymandiasEvent = OzymandiasEventMapper::fromUserRegisterEvent($event);
         //$ozymandiasEvent->removeNulls();
         $ozymandiasEvent->validate();
-        $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
+        return $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
     }
 
     public static function fireAmbassadorInitiatedEvent(AmbassadorInitiatedEvent $event){
@@ -133,7 +133,7 @@ class EventLaucher
         $ozymandiasEvent = OzymandiasEventMapper::fromAmbassadorInitiatedEvent($event);
         //$ozymandiasEvent->removeNulls();
         $ozymandiasEvent->validate();
-        $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
+        return $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
     }
 
     public static function fireLeadFormEvent(LeadFormEvent $event){
@@ -143,7 +143,7 @@ class EventLaucher
         $ozymandiasEvent = OzymandiasEventMapper::fromLeadFormEvent($event);
         //$ozymandiasEvent->removeNulls();
         $ozymandiasEvent->validate();
-        $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
+        return $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
     }
 
     public static function fireSimpleLeadRegisteredEvent(SimpleLeadRegisteredEvent $event){
@@ -153,7 +153,7 @@ class EventLaucher
         $ozymandiasEvent = OzymandiasEventMapper::fromSimpleLeadRegisteredEvent($event);
         //$ozymandiasEvent->removeNulls();
         $ozymandiasEvent->validate();
-        $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
+        return $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
     }
 
     public static function fireLoginEvent(LoginEvent $event){
@@ -165,7 +165,7 @@ class EventLaucher
         $ozymandiasEvent = OzymandiasEventMapper::fromLoginEvent($event);
         //$ozymandiasEvent->removeNulls();
         $ozymandiasEvent->validate();
-        $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
+        return $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
     }
 
     public static function fireSubscriptionPaidEvent(SubscriptionPaidEvent $event){
@@ -175,7 +175,7 @@ class EventLaucher
         $ozymandiasEvent = OzymandiasEventMapper::fromSubscriptionPaidEvent($event);
         //$ozymandiasEvent->removeNulls();
         $ozymandiasEvent->validate();
-        $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
+        return $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
     }
 
     public static function fireSubscriptionRefundEvent(SubscriptionRefundEvent $event){
@@ -185,7 +185,7 @@ class EventLaucher
         $ozymandiasEvent = OzymandiasEventMapper::fromSubscriptionRefundEvent($event);
         //$ozymandiasEvent->removeNulls();
         $ozymandiasEvent->validate();
-        $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
+        return $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
     }
 
     public static function fireSubscriptionAlteredEvent(SubscriptionAlteredEvent $event){
@@ -195,7 +195,7 @@ class EventLaucher
         $ozymandiasEvent = OzymandiasEventMapper::fromSubscriptionAlteredEvent($event);
         //$ozymandiasEvent->removeNulls();
         $ozymandiasEvent->validate();
-        $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
+        return $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
     }
 
     public static function fireInvoiceCheckoutEvent(InvoiceCheckoutEvent $event){
@@ -205,7 +205,7 @@ class EventLaucher
         $ozymandiasEvent = OzymandiasEventMapper::fromInvoiceCheckoutEvent($event);
         //$ozymandiasEvent->removeNulls();
         $ozymandiasEvent->validate();
-        $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
+        return $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
     }
 
     public static function fireProductionOrderCreatedEvent(ProductionOrderCreatedEvent $event){
@@ -215,7 +215,7 @@ class EventLaucher
         $ozymandiasEvent = OzymandiasEventMapper::fromProductionOrderCreatedEvent($event);
         //$ozymandiasEvent->removeNulls();
         $ozymandiasEvent->validate();
-        $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
+        return $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
     }
 
     public static function fireBillCreatedEvent(BillCreatedEvent $event){
@@ -225,7 +225,7 @@ class EventLaucher
         $ozymandiasEvent = OzymandiasEventMapper::fromBillCreatedEvent($event);
         //$ozymandiasEvent->removeNulls();
         $ozymandiasEvent->validate();
-        $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
+        return $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
     }
 
     public static function fireShippingCompanyRegisteredEvent(ShippingCompanyRegisteredEvent $event){
@@ -235,7 +235,7 @@ class EventLaucher
         $ozymandiasEvent = OzymandiasEventMapper::fromShippingCompanyRegisteredEvent($event);
         //$ozymandiasEvent->removeNulls();
         $ozymandiasEvent->validate();
-        $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
+        return $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
     }
 
     public static function fireKitReadyEvent(KitReadyEvent $event){
@@ -245,7 +245,7 @@ class EventLaucher
         $ozymandiasEvent = OzymandiasEventMapper::fromKitReadyEvent($event);
         //$ozymandiasEvent->removeNulls();
         $ozymandiasEvent->validate();
-        $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
+        return $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
     }
 
     public static function fireKitDeliveredEvent(KitDeliveredEvent $event){
@@ -255,7 +255,7 @@ class EventLaucher
         $ozymandiasEvent = OzymandiasEventMapper::fromKitDeliveredEvent($event);
         //$ozymandiasEvent->removeNulls();
         $ozymandiasEvent->validate();
-        $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
+        return $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
     }
 
 
@@ -266,7 +266,7 @@ class EventLaucher
         $ozymandiasEvent = OzymandiasEventMapper::fromSubscriptionCanceledEvent($event);
         //$ozymandiasEvent->removeNulls();
         $ozymandiasEvent->validate();
-        $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
+        return $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
     }
 
     public static function fireSubscriptionContinueEvent(SubscriptionContinueEvent $event){
@@ -276,7 +276,7 @@ class EventLaucher
         $ozymandiasEvent = OzymandiasEventMapper::fromSubscriptionContinueEvent($event);
         //$ozymandiasEvent->removeNulls();
         $ozymandiasEvent->validate();
-        $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
+        return $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
     }
 
     public static function fireSignedAdoletaPlanEvent(SignedAdoletaPlanEvent $event){
@@ -286,7 +286,7 @@ class EventLaucher
         $ozymandiasEvent = OzymandiasEventMapper::fromSignedAdoletaPlanEvent($event);
         //$ozymandiasEvent->removeNulls();
         $ozymandiasEvent->validate();
-        $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
+        return $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
     }
 
     public static function fireAdoletaRenewalEvent(AdoletaRenewalEvent $event){
@@ -296,7 +296,7 @@ class EventLaucher
         $ozymandiasEvent = OzymandiasEventMapper::fromAdoletaRenewalEvent($event);
         //$ozymandiasEvent->removeNulls();
         $ozymandiasEvent->validate();
-        $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
+        return $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
     }
 
     public static function fireSignedLettersPlanEvent(SignedLettersPlanEvent $event){
@@ -306,7 +306,7 @@ class EventLaucher
         $ozymandiasEvent = OzymandiasEventMapper::fromSignedLettersPlanEvent($event);
         //$ozymandiasEvent->removeNulls();
         $ozymandiasEvent->validate();
-        $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
+        return $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
     }
 
 }

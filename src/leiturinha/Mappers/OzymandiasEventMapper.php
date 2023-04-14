@@ -306,10 +306,10 @@ class OzymandiasEventMapper
 
 
         // LOG DE SAIDA DO JSON
-        // $local_log=dirname(__FILE__).'/../../../../../../protected/logs/logs.txt';
+        // $local_log=dirname(__FILE__).'/../../../../../../storage/logs/logs.txt';
         // $fp = fopen($local_log, "a+");
         // fwrite($fp, date("Y-m-d H:i:s")."\n\n");
-        // fwrite($fp, "-- event->custom_data do fromCallcenterContactEvent\n");
+        // fwrite($fp, "-- event->custom_data do fromSubscriptionPaidEvent\n");
         // $event_string = json_encode($event->custom_data, JSON_PRETTY_PRINT);
         // fwrite($fp, $event_string."\n\n");
         // fclose($fp);
@@ -471,14 +471,5 @@ class OzymandiasEventMapper
 
         return $ozymandiasEvent;
     }
-
-        // // LOG DE SAIDA DO JSON
-        // $local_log=dirname(__FILE__).'/../../../../../../protected/logs/logs.txt';
-        // $fp = fopen($local_log, "a+");
-        // fwrite($fp, date("Y-m-d H:i:s")."\n\n");
-        // fwrite($fp, "-- event->custom_data do fromCallcenterContactEvent\n");
-        // $event_string = json_encode($event->custom_data, JSON_PRETTY_PRINT);
-        // fwrite($fp, $event_string."\n\n");
-        // fclose($fp);
 
 }
