@@ -10,36 +10,59 @@ class KinesisManager
 {
     protected $kinesisClient;
 
-    // function __construct() {
-    //     $this->kinesisClient = new KinesisClient([
-    //         'version' => '2013-12-02',
-    //         'region' => getenv('AWS_REGION'),
-    //         'credentials' => [
-    //             'key' => getenv('AWS_ACCESS_KEY_ID_DEVELOP'),
-    //             'secret' => getenv('AWS_SECRET_ACCESS_KEY_DEVELOP')
-    //         ]
-    //     ]);
-    // }
+    function __construct() {
+
+        $this->kinesisClient = new KinesisClient([
+            'version' => '2013-12-02',
+            'region' => getenv('AWS_REGION'),
+            'credentials' => [
+                'key' => getenv('AWS_ACCESS_KEY_ID_DEVELOP'),
+                'secret' => getenv('AWS_SECRET_ACCESS_KEY_DEVELOP')
+            ]
+        ]);
+
+    }
 
     /**
-     * @param $data
+     * @param $eventData
      * @param $platform
      */
-    public function addEvent($data, $platform)
+    public function addEvent($eventData, $platform)
     {
         try {
-            //$this->createRecord($data, $platform);
+            $this->createRecord($eventData, $platform);
 
-            $server = "https://playkids-ozymandias-staging.api.leiturinha.com.br";  //TODO
+        } catch (AwsException $exception) {
+            //TODO o que fazer em caso de erro ?
+            echo $exception->getMessage();
+        }
+    }
+
+    /**
+     * @param $eventData
+     * @param $platform
+     */
+    public function addEventOzy($eventData, $platform)
+    {
+        try {
+
+            // URL NGROK APONTANDO PARA DOCKER LOCAL DO OZYMANDIAS LOCAL
+            //$server = "http://d53b-177-16-64-206.ngrok.io";
+            //$header = "ngrok-skip-browser-warning: 1234";
+
+            $server = "https://playkids-ozymandias-staging.api.leiturinha.com.br"; 
+            $header = "";
+
             $endpoint = "/v2/events";
             $url = $server . $endpoint;
 
             $headers[] = 'Content-Type: application/json';
             $headers[] = 'Cache-Control: no-cache';
+            $headers[] = $header;
 
             $ch = curl_init( $url );
             curl_setopt( $ch, CURLOPT_POST, 1);
-            curl_setopt( $ch, CURLOPT_POSTFIELDS, $data);
+            curl_setopt( $ch, CURLOPT_POSTFIELDS, $eventData);
             curl_setopt( $ch, CURLOPT_TIMEOUT , 30 );
             curl_setopt( $ch, CURLOPT_HTTPHEADER, $headers);
             curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
@@ -50,21 +73,18 @@ class KinesisManager
             }
             else
             {
-                // DEBUG
-                //print_r(curl_getinfo($ch));
-
-                // RESULT
-                // echo "<pre style='font-size:11px;'>-- RETORNO GENÉRICO (addEvent do SDK Ozymandias):</pre>";
-                // $json2 = json_encode(json_decode($result), JSON_PRETTY_PRINT);
-                // echo "<pre style='font-size:11px;'>" . $json2 . "</pre><pre><BR></pre>";
 
                 return $result;
-
             }
 
         } catch (AwsException $exception) {
             //TODO o que fazer em caso de erro ?
-            echo $exception->getMessage();
+             echo json_encode([
+                 'Erro addEvent - Ozymandias LOCAL: ' => $exception->getMessage(),
+                 'Data Event: ' => ''
+             ]);
+             echo $eventData;
+
         }
     }
 

@@ -4,15 +4,13 @@ error_reporting(E_ALL);
 
 require "vendor/autoload.php";
 
-use Leiturinha\Handler;
-
 $dotenv = Dotenv\Dotenv::create(__DIR__);
 $dotenv->load();
 
-$event = new \Leiturinha\Object\AddPaymentInfoEvent();
+$event = new \Leiturinha\Object\PageViewEvent();
 $event->email = "neymarjr@gmail.com";
 $event->page_url = "https://leiturinha.com.br/user/payment";
-$event->page_name = "Pagamento";
+$event->page = "Pagamento";
 $event->channel = "Leiturinha";
 $event->user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Safari/537.36";
 

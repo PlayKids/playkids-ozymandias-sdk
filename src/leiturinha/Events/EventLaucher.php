@@ -158,8 +158,6 @@ class EventLaucher
 
     public static function fireLoginEvent(LoginEvent $event){
 
-        
-
         $kinesisManager = new KinesisManager();
 
         $ozymandiasEvent = OzymandiasEventMapper::fromLoginEvent($event);
