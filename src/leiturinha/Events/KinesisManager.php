@@ -50,7 +50,12 @@ class KinesisManager
             //$server = "http://d53b-177-16-64-206.ngrok.io";
             //$header = "ngrok-skip-browser-warning: 1234";
 
-            $server = "https://playkids-ozymandias-staging.api.leiturinha.com.br"; 
+            // STAGE
+            // $server = "https://playkids-ozymandias-staging.api.leiturinha.com.br"; 
+            // $header = "";
+
+            // PROD
+            $server = "https://playkids-ozymandias.api.leiturinha.com.br";
             $header = "";
 
             $endpoint = "/v2/events";

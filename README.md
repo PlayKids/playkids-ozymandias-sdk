@@ -47,7 +47,7 @@ Handler::receiveData($data);
 
 Add to your composer.json:
 
-**require**: _"playkids/playkids-ozymandias-sdk" : "^0.2.0"_
+**require**: _"playkids/playkids-ozymandias-sdk" : "^0.2"_
 
 **repositories**: _[{"type":"vcs","url":"https://github.com/PlayKids/playkids-ozymandias-sdk"}]_
  
@@ -55,7 +55,7 @@ Now run **composer update playkids/playkids-ozymandias-sdk**
 
 Create mapper class to collect data events (using the /src/leiturinha/Example/EventsMapper.php file as an example base)
 
-## Usage
+## Usage - Option 1: using Mapper
 
 ```php
 use App\Mappers\EventsMapper;
@@ -64,6 +64,20 @@ EventsMapper::PageViewEvent([
     'page' => $request->page,
     'email' => $request->email
 ]);
+```
+
+## Usage - Option 2: using standalone
+
+```php
+$event = new \Leiturinha\Object\PageViewEvent();
+$event->event_id = "PageView_123456789";
+$event->email = "joaoteste@testejoao.com.br";
+$event->page_url = "https://leiturinha.com.br";
+$event->page_name = "Cadastro";
+$event->channel = "Leiturinha";
+$event->user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Safari/537.36";
+
+\Leiturinha\Events\EventLaucher::firePageViewEvent($event);
 ```
 
 ## Usage classes 
