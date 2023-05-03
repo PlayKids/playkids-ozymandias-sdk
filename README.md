@@ -6,7 +6,7 @@ PHP - [PSR-12](https://www.php-fig.org/psr/psr-12/)
 
 Commits - [Conventional Commits](https://www.conventionalcommits.org/)
 
-## Setup
+## Setup version 0.1
 
 Add to your composer.json:
 
@@ -39,4 +39,62 @@ Handler::receiveData($data);
     use Leiturinha\Object\UserDataFbHashField;
     use Leiturinha\Object\EventCustomData;
     use Leiturinha\Object\UserDataFb;
+```
+
+
+
+## Setup version 0.2
+
+Add to your composer.json:
+
+**require**: _"playkids/playkids-ozymandias-sdk" : "^0.2"_
+
+**repositories**: _[{"type":"vcs","url":"https://github.com/PlayKids/playkids-ozymandias-sdk"}]_
+ 
+Now run **composer update playkids/playkids-ozymandias-sdk**
+
+Create mapper class to collect data events (using the /src/leiturinha/Example/EventsMapper.php file as an example base)
+
+## Usage - Option 1: using Mapper
+
+```php
+use App\Mappers\EventsMapper;
+
+EventsMapper::PageViewEvent([
+    'page' => $request->page,
+    'email' => $request->email
+]);
+```
+
+## Usage - Option 2: using standalone
+
+```php
+$event = new \Leiturinha\Object\PageViewEvent();
+$event->event_id = "PageView_123456789";
+$event->email = "joaoteste@testejoao.com.br";
+$event->page_url = "https://leiturinha.com.br";
+$event->page_name = "Cadastro";
+$event->channel = "Leiturinha";
+$event->user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Safari/537.36";
+
+\Leiturinha\Events\EventLaucher::firePageViewEvent($event);
+```
+
+## Usage classes 
+
+```php
+use Leiturinha\Events\EventLaucher;
+use Leiturinha\Object\EventBase;
+use Leiturinha\Object\InitiateCheckoutEvent;
+use Leiturinha\Object\AddPaymentInfoEvent;
+use Leiturinha\Object\AddToCartEvent;
+use Leiturinha\Object\PurchaseEvent;
+use Leiturinha\Object\ChildrenRegisterEvent;
+use Leiturinha\Object\LeadFormEvent;
+use Leiturinha\Object\SimpleLeadRegisteredEvent;
+use Leiturinha\Object\LoginEvent;
+use Leiturinha\Object\PageViewEvent;
+use Leiturinha\Object\UserRegisterEvent;
+use Leiturinha\Object\AmbassadorInitiatedEvent;
+use Leiturinha\Object\UserData;
 ```

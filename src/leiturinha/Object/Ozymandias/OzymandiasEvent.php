@@ -1,6 +1,6 @@
 <?php
 
-namespace Leiturinha\Object\Facebook;
+namespace Leiturinha\Object\Ozymandias;
 
 use Leiturinha\Object\AddPaymentInfoEvent;
 use Leiturinha\Object\AddToCartEvent;
@@ -8,7 +8,7 @@ use Leiturinha\Object\InitiateCheckoutEvent;
 use Leiturinha\Object\PurchaseEvent;
 
 /**
- * Facebook Server Event Parameters
+ * Ozymandias Server Event Parameters
  *
  * @property EventName $event_name required
  * @property int $event_time UNIX timestamp required
@@ -18,8 +18,16 @@ use Leiturinha\Object\PurchaseEvent;
  * @property bool $opt_out
  * @property string $event_id
  * @property ActionSource $action_source required
+ * @property string $contact_key
+ * @property string $browser_string
+ * @property string $channel
+ * @property string $utm_source
+ * @property string $utm_medium
+ * @property string $utm_campaign
+ * @property string $page
+ * @property string $client_ip_address
  */
-class FacebookEvent
+class OzymandiasEvent
 {
     public $event_name;
     public $event_time;
@@ -29,6 +37,14 @@ class FacebookEvent
     public $opt_out;
     public $event_id;
     public $action_source;
+    public $contact_key;
+    public $browser_string;
+    public $channel;
+    public $utm_source;
+    public $utm_medium;
+    public $utm_campaign;
+    public $page;
+    public $client_ip_address;
 
     public function validate()
     {
@@ -57,10 +73,6 @@ class FacebookEvent
                     throw new \InvalidArgumentException('client_user_agent and client_ip_address required');
                 }
             }
-        }
-
-        if(isset($this->custom_data)) {
-            $this->custom_data->validate();
         }
 
         if(!$this->event_name || !$this->event_time || !$this->event_source_url) {
