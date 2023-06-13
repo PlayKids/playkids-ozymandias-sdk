@@ -31,9 +31,10 @@ use Leiturinha\Object\SignedAdoletaPlanEvent;
 use Leiturinha\Object\AdoletaRenewalEvent;
 use Leiturinha\Object\SignedLettersPlanEvent;
 
-use Leiturinha\Object\Ozymandias\OzymandiasEvent;
-use Leiturinha\Object\Ozymandias\Enums\EventName;
+use Leiturinha\Object\Enums\EventName;
+
 use Leiturinha\Object\Ozymandias\Enums\ActionSource;
+use Leiturinha\Object\Ozymandias\OzymandiasEvent;
 use Leiturinha\Object\Ozymandias\UserData;
 use Leiturinha\Object\Ozymandias\PurchaseEventCustomData;
 use Leiturinha\Object\Ozymandias\AddtoCartEventCustomData;
