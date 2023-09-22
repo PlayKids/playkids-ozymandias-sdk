@@ -30,5 +30,6 @@ class EventName
     const ADOLETA_RENEWAL = "AdoletaRenewal";
     const SIGNED_LETTERS_PLAN = "SignedLettersPlan";
     const AMBASSADOR_INITIATED = "AmbassadorInitiated";
+    const IMPORT = "Import";
 
 }

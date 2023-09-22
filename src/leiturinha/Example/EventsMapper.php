@@ -307,12 +307,14 @@ class EventsMapper
                 $data_cart_item['child_name_1'] = $cartItem->children_name;
                 $data_cart_item['child_gender_1'] = $cartItem->children_gender;
                 $data_cart_item['child_birthday_1'] = date('Y-m-d', strtotime($cartItem->children_birthday));
+                $data_cart_item['child_didatic_age_1'] = date('Y-m-d', strtotime($cartItem->didatic_age));
             }
 
             if(isset($cartItem->children_name_2)) {
                 $data_cart_item['child_name_2'] = $cartItem->children_name_2;
                 $data_cart_item['child_gender_2'] = $cartItem->children_gender_2;
                 $data_cart_item['child_birthday_2'] = date('Y-m-d', strtotime($cartItem->children_birthday_2));
+                $data_cart_item['child_didatic_age_2'] = date('Y-m-d', strtotime($cartItem->didatic_age_2));
             }
 
             $eventData->cart_item = $data_cart_item;
