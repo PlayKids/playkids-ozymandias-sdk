@@ -30,6 +30,7 @@ use Leiturinha\Object\SubscriptionContinueEvent;
 use Leiturinha\Object\SignedAdoletaPlanEvent;
 use Leiturinha\Object\AdoletaRenewalEvent;
 use Leiturinha\Object\SignedLettersPlanEvent;
+use Leiturinha\Object\ImportEvent;
 
 use Leiturinha\Object\Enums\EventName;
 
@@ -63,6 +64,7 @@ use Leiturinha\Object\Ozymandias\SubscriptionContinueEventCustomData;
 use Leiturinha\Object\Ozymandias\SignedAdoletaPlanEventCustomData;
 use Leiturinha\Object\Ozymandias\AdoletaRenewalEventCustomData;
 use Leiturinha\Object\Ozymandias\SignedLettersPlanEventCustomData;
+use Leiturinha\Object\Ozymandias\ImportEventCustomData;
 
 class OzymandiasEventMapper
 {
@@ -73,7 +75,7 @@ class OzymandiasEventMapper
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
         $ozymandiasEvent->event_name = EventName::ADD_PAYMENT_INFO;
-        $ozymandiasEvent->custom_data = $customData;
+        $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
@@ -84,7 +86,7 @@ class OzymandiasEventMapper
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
         $ozymandiasEvent->event_name = EventName::ADD_TO_CART;
-        $ozymandiasEvent->custom_data = $customData;
+        $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
@@ -95,7 +97,7 @@ class OzymandiasEventMapper
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
         $ozymandiasEvent->event_name = EventName::INITIATE_CHECKOUT;
-        $ozymandiasEvent->custom_data = $customData;
+        $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
@@ -109,7 +111,7 @@ class OzymandiasEventMapper
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
         $ozymandiasEvent->event_name = EventName::PURCHASE;
-        $ozymandiasEvent->custom_data = $customData;
+        $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
@@ -120,7 +122,7 @@ class OzymandiasEventMapper
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
         $ozymandiasEvent->event_name = EventName::CHILDREN_REGISTER;
-        $ozymandiasEvent->custom_data = $customData;
+        $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
@@ -131,7 +133,7 @@ class OzymandiasEventMapper
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
         $ozymandiasEvent->event_name = EventName::USER_REGISTER;
-        $ozymandiasEvent->custom_data = $customData;
+        $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
@@ -142,7 +144,7 @@ class OzymandiasEventMapper
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
         $ozymandiasEvent->event_name = EventName::AMBASSADOR_INITIATED;
-        $ozymandiasEvent->custom_data = $customData;
+        $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
@@ -162,7 +164,7 @@ class OzymandiasEventMapper
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
         $ozymandiasEvent->event_name = EventName::LEAD_FORM;
-        $ozymandiasEvent->custom_data = $customData;
+        $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
@@ -178,7 +180,7 @@ class OzymandiasEventMapper
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
         $ozymandiasEvent->event_name = EventName::SIMPLE_LEAD_REGISTERED;
-        $ozymandiasEvent->custom_data = $customData;
+        $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
@@ -189,7 +191,7 @@ class OzymandiasEventMapper
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
         $ozymandiasEvent->event_name = EventName::LOGIN;
-        $ozymandiasEvent->custom_data = $customData;
+        $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
@@ -203,7 +205,7 @@ class OzymandiasEventMapper
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
 
         $ozymandiasEvent->event_name = EventName::PAGE_VIEW;
-        $ozymandiasEvent->custom_data = $customData;
+        $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
@@ -303,7 +305,7 @@ class OzymandiasEventMapper
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
         $ozymandiasEvent->event_name = EventName::SUBSCRIPTION_PAID;
-        $ozymandiasEvent->custom_data = $event->custom_data; //$customData;
+        $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
 
         // LOG DE SAIDA DO JSON
@@ -324,7 +326,7 @@ class OzymandiasEventMapper
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
         $ozymandiasEvent->event_name = EventName::SUBSCRIPTION_REFUND;
-        $ozymandiasEvent->custom_data = $event->custom_data; //$customData;
+        $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
@@ -335,7 +337,7 @@ class OzymandiasEventMapper
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
         $ozymandiasEvent->event_name = EventName::SUBSCRIPTION_ALTERED;
-        $ozymandiasEvent->custom_data = $event->custom_data; //$customData;
+        $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
@@ -346,7 +348,7 @@ class OzymandiasEventMapper
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
         $ozymandiasEvent->event_name = EventName::INVOICE_CHECKOUT;
-        $ozymandiasEvent->custom_data = $event->custom_data; //$customData;
+        $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
@@ -357,7 +359,7 @@ class OzymandiasEventMapper
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
         $ozymandiasEvent->event_name = EventName::PRODUCTION_ORDER_CREATED;
-        $ozymandiasEvent->custom_data = $event->custom_data; //$customData;
+        $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
@@ -368,7 +370,7 @@ class OzymandiasEventMapper
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
         $ozymandiasEvent->event_name = EventName::BILL_CREATED;
-        $ozymandiasEvent->custom_data = $event->custom_data; //$customData;
+        $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
@@ -379,7 +381,7 @@ class OzymandiasEventMapper
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
         $ozymandiasEvent->event_name = EventName::SHIPPING_COMPANY_REGISTERED;
-        $ozymandiasEvent->custom_data = $event->custom_data; //$customData;
+        $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
@@ -390,7 +392,7 @@ class OzymandiasEventMapper
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
         $ozymandiasEvent->event_name = EventName::KIT_READY;
-        $ozymandiasEvent->custom_data = $event->custom_data; //$customData;
+        $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
@@ -401,7 +403,7 @@ class OzymandiasEventMapper
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
         $ozymandiasEvent->event_name = EventName::KIT_DELIVERED;
-        $ozymandiasEvent->custom_data = $event->custom_data; //$customData;
+        $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
@@ -413,7 +415,7 @@ class OzymandiasEventMapper
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
         $ozymandiasEvent->event_name = EventName::CALLCENTER_CONTACT;
-        $ozymandiasEvent->custom_data = $event->custom_data; //$event->custom_data; //$customData;
+        $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
@@ -424,7 +426,7 @@ class OzymandiasEventMapper
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
         $ozymandiasEvent->event_name = EventName::SUBSCRIPTION_CANCELED;
-        $ozymandiasEvent->custom_data = $event->custom_data; //$customData;
+        $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
@@ -435,7 +437,7 @@ class OzymandiasEventMapper
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
         $ozymandiasEvent->event_name = EventName::SUBSCRIPTION_CONTINUE;
-        $ozymandiasEvent->custom_data = $event->custom_data; //$customData;
+        $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
@@ -446,7 +448,7 @@ class OzymandiasEventMapper
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
         $ozymandiasEvent->event_name = EventName::SIGNED_ADOLETA_PLAN;
-        $ozymandiasEvent->custom_data = $event->custom_data; //$customData;
+        $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
@@ -457,7 +459,7 @@ class OzymandiasEventMapper
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
         $ozymandiasEvent->event_name = EventName::ADOLETA_RENEWAL;
-        $ozymandiasEvent->custom_data = $event->custom_data; //$customData;
+        $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
@@ -468,7 +470,18 @@ class OzymandiasEventMapper
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
         $ozymandiasEvent->event_name = EventName::SIGNED_LETTERS_PLAN;
-        $ozymandiasEvent->custom_data = $event->custom_data; //$customData;
+        $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
+
+        return $ozymandiasEvent;
+    }
+
+    public static function fromImportEvent(ImportEvent $event)
+    {
+        $customData = new ImportEventCustomData();
+
+        $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
+        $ozymandiasEvent->event_name = EventName::IMPORT;
+        $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }

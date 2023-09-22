@@ -29,6 +29,7 @@ use Leiturinha\Object\SubscriptionContinueEvent;
 use Leiturinha\Object\SignedAdoletaPlanEvent;
 use Leiturinha\Object\AdoletaRenewalEvent;
 use Leiturinha\Object\SignedLettersPlanEvent;
+use Leiturinha\Object\ImportEvent;
 
 use Leiturinha\Object\Enums\Platform;
 use Leiturinha\Mappers\OzymandiasEventMapper;
@@ -95,7 +96,6 @@ class EventLaucher
         return $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
     }
 
-    // Documentation about ....
     public static function firePurchaseEvent(PurchaseEvent $event){
 
         $kinesisManager = new KinesisManager();
@@ -302,6 +302,16 @@ class EventLaucher
         $kinesisManager = new KinesisManager();
 
         $ozymandiasEvent = OzymandiasEventMapper::fromSignedLettersPlanEvent($event);
+        //$ozymandiasEvent->removeNulls();
+        $ozymandiasEvent->validate();
+        return $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
+    }
+
+    public static function fireImportEvent(ImportEvent $event){
+
+        $kinesisManager = new KinesisManager();
+
+        $ozymandiasEvent = OzymandiasEventMapper::fromImportEvent($event);
         //$ozymandiasEvent->removeNulls();
         $ozymandiasEvent->validate();
         return $kinesisManager->addEvent(json_encode($ozymandiasEvent), Platform::PLATFORM_OZYMANDIAS);
