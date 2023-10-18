@@ -2,156 +2,159 @@
 
 namespace Leiturinha\Mappers;
 
-use Leiturinha\Object\EventBase;
-use Leiturinha\Object\AddPaymentInfoEvent;
-use Leiturinha\Object\AddToCartEvent;
-use Leiturinha\Object\InitiateCheckoutEvent;
-use Leiturinha\Object\ChildrenRegisterEvent;
-use Leiturinha\Object\UserRegisterEvent;
-use Leiturinha\Object\LeadFormEvent;
-use Leiturinha\Object\SimpleLeadRegisteredEvent;
-use Leiturinha\Object\LoginEvent;
-use Leiturinha\Object\PageViewEvent;
-use Leiturinha\Object\PurchaseEvent;
-use Leiturinha\Object\AmbassadorInitiatedEvent;
+use Leiturinha\Object\EventBaseOzy;
+use Leiturinha\Object\AddPaymentInfoEventOzy;
+use Leiturinha\Object\AddToCartEventOzy;
+use Leiturinha\Object\InitiateCheckoutEventOzy;
+use Leiturinha\Object\ChildrenRegisterEventOzy;
+use Leiturinha\Object\UserRegisterEventOzy;
+use Leiturinha\Object\LeadFormEventOzy;
+use Leiturinha\Object\SimpleLeadRegisteredEventOzy;
+use Leiturinha\Object\LoginEventOzy;
+use Leiturinha\Object\PageViewEventOzy;
+use Leiturinha\Object\PurchaseEventOzy;
+use Leiturinha\Object\AmbassadorInitiatedEventOzy;
 
-use Leiturinha\Object\SubscriptionPaidEvent;
-use Leiturinha\Object\SubscriptionRefundEvent;
-use Leiturinha\Object\SubscriptionAlteredEvent;
-use Leiturinha\Object\InvoiceCheckoutEvent;
-use Leiturinha\Object\ProductionOrderCreatedEvent;
-use Leiturinha\Object\BillCreatedEvent;
-use Leiturinha\Object\ShippingCompanyRegisteredEvent;
-use Leiturinha\Object\KitReadyEvent;
-use Leiturinha\Object\KitDeliveredEvent;
-use Leiturinha\Object\CallcenterContactEvent;
-use Leiturinha\Object\SubscriptionCanceledEvent;
-use Leiturinha\Object\SubscriptionContinueEvent;
-use Leiturinha\Object\SignedAdoletaPlanEvent;
-use Leiturinha\Object\AdoletaRenewalEvent;
-use Leiturinha\Object\SignedLettersPlanEvent;
-use Leiturinha\Object\ImportEvent;
+use Leiturinha\Object\SubscriptionPaidEventOzy;
+use Leiturinha\Object\SubscriptionRefundEventOzy;
+use Leiturinha\Object\SubscriptionAlteredEventOzy;
+use Leiturinha\Object\InvoiceCheckoutEventOzy;
+use Leiturinha\Object\ProductionOrderCreatedEventOzy;
+use Leiturinha\Object\BillCreatedEventOzy;
+use Leiturinha\Object\ShippingCompanyRegisteredEventOzy;
+use Leiturinha\Object\KitReadyEventOzy;
+use Leiturinha\Object\KitDeliveredEventOzy;
+use Leiturinha\Object\CallcenterContactEventOzy;
+use Leiturinha\Object\SubscriptionCanceledEventOzy;
+use Leiturinha\Object\SubscriptionContinueEventOzy;
+use Leiturinha\Object\SignedAdoletaPlanEventOzy;
+use Leiturinha\Object\AdoletaRenewalEventOzy;
+use Leiturinha\Object\SignedLettersPlanEventOzy;
+use Leiturinha\Object\ImportEventOzy;
 
-use Leiturinha\Object\Enums\EventName;
+use Leiturinha\Object\Enums\EventNameOzy;
 
 use Leiturinha\Object\Ozymandias\Enums\ActionSource;
 use Leiturinha\Object\Ozymandias\OzymandiasEvent;
 use Leiturinha\Object\Ozymandias\UserData;
-use Leiturinha\Object\Ozymandias\PurchaseEventCustomData;
-use Leiturinha\Object\Ozymandias\AddtoCartEventCustomData;
-use Leiturinha\Object\Ozymandias\AddPaymentInfoEventCustomData;
-use Leiturinha\Object\Ozymandias\InitiateCheckoutEventCustomData;
-use Leiturinha\Object\Ozymandias\ChildrenRegisterEventCustomData;
-use Leiturinha\Object\Ozymandias\UserRegisterEventCustomData;
-use Leiturinha\Object\Ozymandias\LeadFormEventCustomData;
-use Leiturinha\Object\Ozymandias\SimpleLeadRegisteredEventCustomData;
-use Leiturinha\Object\Ozymandias\LoginEventCustomData;
-use Leiturinha\Object\Ozymandias\PageViewEventCustomData;
-use Leiturinha\Object\Ozymandias\AmbassadorInitiatedEventCustomData;
+use Leiturinha\Object\Ozymandias\PurchaseEventOzyCustomData;
+use Leiturinha\Object\Ozymandias\AddtoCartEventOzyCustomData;
+use Leiturinha\Object\Ozymandias\AddPaymentInfoEventOzyCustomData;
+use Leiturinha\Object\Ozymandias\InitiateCheckoutEventOzyCustomData;
+use Leiturinha\Object\Ozymandias\ChildrenRegisterEventOzyCustomData;
+use Leiturinha\Object\Ozymandias\UserRegisterEventOzyCustomData;
+use Leiturinha\Object\Ozymandias\LeadFormEventOzyCustomData;
+use Leiturinha\Object\Ozymandias\SimpleLeadRegisteredEventOzyCustomData;
+use Leiturinha\Object\Ozymandias\LoginEventOzyCustomData;
+use Leiturinha\Object\Ozymandias\PageViewEventOzyCustomData;
+use Leiturinha\Object\Ozymandias\AmbassadorInitiatedEventOzyCustomData;
 
-use Leiturinha\Object\Ozymandias\SubscriptionPaidEventCustomData;
-use Leiturinha\Object\Ozymandias\SubscriptionRefundEventCustomData;
-use Leiturinha\Object\Ozymandias\SubscriptionAlteredEventCustomData;
-use Leiturinha\Object\Ozymandias\InvoiceCheckoutEventCustomData;
-use Leiturinha\Object\Ozymandias\ProductionOrderCreatedEventCustomData;
-use Leiturinha\Object\Ozymandias\BillCreatedEventCustomData;
-use Leiturinha\Object\Ozymandias\ShippingCompanyRegisteredEventCustomData;
-use Leiturinha\Object\Ozymandias\KitReadyEventCustomData;
-use Leiturinha\Object\Ozymandias\KitDeliveredEventCustomData;
-use Leiturinha\Object\Ozymandias\CallcenterContactEventCustomData;
-use Leiturinha\Object\Ozymandias\SubscriptionCanceledEventCustomData;
-use Leiturinha\Object\Ozymandias\SubscriptionContinueEventCustomData;
-use Leiturinha\Object\Ozymandias\SignedAdoletaPlanEventCustomData;
-use Leiturinha\Object\Ozymandias\AdoletaRenewalEventCustomData;
-use Leiturinha\Object\Ozymandias\SignedLettersPlanEventCustomData;
-use Leiturinha\Object\Ozymandias\ImportEventCustomData;
+use Leiturinha\Object\Ozymandias\SubscriptionPaidEventOzyCustomData;
+use Leiturinha\Object\Ozymandias\SubscriptionRefundEventOzyCustomData;
+use Leiturinha\Object\Ozymandias\SubscriptionAlteredEventOzyCustomData;
+use Leiturinha\Object\Ozymandias\InvoiceCheckoutEventOzyCustomData;
+use Leiturinha\Object\Ozymandias\ProductionOrderCreatedEventOzyCustomData;
+use Leiturinha\Object\Ozymandias\BillCreatedEventOzyCustomData;
+use Leiturinha\Object\Ozymandias\ShippingCompanyRegisteredEventOzyCustomData;
+use Leiturinha\Object\Ozymandias\KitReadyEventOzyCustomData;
+use Leiturinha\Object\Ozymandias\KitDeliveredEventOzyCustomData;
+use Leiturinha\Object\Ozymandias\CallcenterContactEventOzyCustomData;
+use Leiturinha\Object\Ozymandias\SubscriptionCanceledEventOzyCustomData;
+use Leiturinha\Object\Ozymandias\SubscriptionContinueEventOzyCustomData;
+use Leiturinha\Object\Ozymandias\SignedAdoletaPlanEventOzyCustomData;
+use Leiturinha\Object\Ozymandias\AdoletaRenewalEventOzyCustomData;
+use Leiturinha\Object\Ozymandias\SignedLettersPlanEventOzyCustomData;
+use Leiturinha\Object\Ozymandias\ImportEventOzyCustomData;
 
 class OzymandiasEventMapper
 {
 
-    public static function fromAddPaymentInfoEvent(AddPaymentInfoEvent $event)
+    public static function fromAddPaymentInfoEvent(AddPaymentInfoEventOzy $event)
     {
-        $customData = new AddPaymentInfoEventCustomData();
+        $customData = new AddPaymentInfoEventOzyCustomData();
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
-        $ozymandiasEvent->event_name = EventName::ADD_PAYMENT_INFO;
+        $ozymandiasEvent->event_name = EventNameOzy::ADD_PAYMENT_INFO;
         $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
 
-    public static function fromAddToCartEvent(AddToCartEvent $event)
+    public static function fromAddToCartEvent(AddToCartEventOzy $event)
     {
-        $customData = new AddtoCartEventCustomData();
+        $customData = new AddtoCartEventOzyCustomData();
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
-        $ozymandiasEvent->event_name = EventName::ADD_TO_CART;
+        $ozymandiasEvent->event_name = EventNameOzy::ADD_TO_CART;
         $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
 
-    public static function fromInitiateCheckoutEvent(InitiateCheckoutEvent $event)
+    public static function fromInitiateCheckoutEvent(InitiateCheckoutEventOzy $event)
     {
-        $customData = new InitiateCheckoutEventCustomData();
+        $customData = new InitiateCheckoutEventOzyCustomData();
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
-        $ozymandiasEvent->event_name = EventName::INITIATE_CHECKOUT;
+        $ozymandiasEvent->event_name = EventNameOzy::INITIATE_CHECKOUT;
         $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
 
-    public static function fromPurchaseEvent(PurchaseEvent $event)
+    public static function fromPurchaseEvent(PurchaseEventOzy $event)
     {
-        $customData = new PurchaseEventCustomData();
+        $customData = new PurchaseEventOzyCustomData();
 
             $customData->plan_price = $event->plan_price;
             $customData->currency = isset($event->currency) ? $event->currency : "BRL";
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
-        $ozymandiasEvent->event_name = EventName::PURCHASE;
+        $ozymandiasEvent->event_name = EventNameOzy::PURCHASE;
         $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
+
+        $ozymandiasEvent->plan_price = $event->plan_price;
+        $ozymandiasEvent->currency = isset($event->currency) ? $event->currency : "BRL";
 
         return $ozymandiasEvent;
     }
 
-    public static function fromChildrenRegisterEvent(ChildrenRegisterEvent $event)
+    public static function fromChildrenRegisterEvent(ChildrenRegisterEventOzy $event)
     {
-        $customData = new ChildrenRegisterEventCustomData();
+        $customData = new ChildrenRegisterEventOzyCustomData();
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
-        $ozymandiasEvent->event_name = EventName::CHILDREN_REGISTER;
+        $ozymandiasEvent->event_name = EventNameOzy::CHILDREN_REGISTER;
         $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
 
-    public static function fromUserRegisterEvent(UserRegisterEvent $event)
+    public static function fromUserRegisterEvent(UserRegisterEventOzy $event)
     {
-        $customData = new UserRegisterEventCustomData();
+        $customData = new UserRegisterEventOzyCustomData();
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
-        $ozymandiasEvent->event_name = EventName::USER_REGISTER;
+        $ozymandiasEvent->event_name = EventNameOzy::USER_REGISTER;
         $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
 
-    public static function fromAmbassadorInitiatedEvent(AmbassadorInitiatedEvent $event)
+    public static function fromAmbassadorInitiatedEvent(AmbassadorInitiatedEventOzy $event)
     {
-        $customData = new AmbassadorInitiatedEventCustomData();
+        $customData = new AmbassadorInitiatedEventOzyCustomData();
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
-        $ozymandiasEvent->event_name = EventName::AMBASSADOR_INITIATED;
+        $ozymandiasEvent->event_name = EventNameOzy::AMBASSADOR_INITIATED;
         $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
 
-    public static function fromLeadFormEvent(LeadFormEvent $event)
+    public static function fromLeadFormEvent(LeadFormEventOzy $event)
     {
-        $customData = new LeadFormEventCustomData();
+        $customData = new LeadFormEventOzyCustomData();
 
             $customData->src = $event->src;
             $customData->name = $event->name;
@@ -163,15 +166,15 @@ class OzymandiasEventMapper
             $customData->date = $event->date;
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
-        $ozymandiasEvent->event_name = EventName::LEAD_FORM;
+        $ozymandiasEvent->event_name = EventNameOzy::LEAD_FORM;
         $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
 
-    public static function fromSimpleLeadRegisteredEvent(SimpleLeadRegisteredEvent $event)
+    public static function fromSimpleLeadRegisteredEvent(SimpleLeadRegisteredEventOzy $event)
     {
-        $customData = new SimpleLeadRegisteredEventCustomData();
+        $customData = new SimpleLeadRegisteredEventOzyCustomData();
 
             $customData->src = $event->src;
             $customData->name = $event->name;
@@ -179,38 +182,38 @@ class OzymandiasEventMapper
             $customData->phone = $event->phone;
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
-        $ozymandiasEvent->event_name = EventName::SIMPLE_LEAD_REGISTERED;
+        $ozymandiasEvent->event_name = EventNameOzy::SIMPLE_LEAD_REGISTERED;
         $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
 
-    public static function fromLoginEvent(LoginEvent $event)
+    public static function fromLoginEvent(LoginEventOzy $event)
     {
-        $customData = new LoginEventCustomData();
+        $customData = new LoginEventOzyCustomData();
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
-        $ozymandiasEvent->event_name = EventName::LOGIN;
+        $ozymandiasEvent->event_name = EventNameOzy::LOGIN;
         $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
 
-    public static function fromPageView(PageViewEvent $event)
+    public static function fromPageView(PageViewEventOzy $event)
     {
-        $customData = new PageViewEventCustomData();
+        $customData = new PageViewEventOzyCustomData();
 
         $customData->data = $event->data;
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
 
-        $ozymandiasEvent->event_name = EventName::PAGE_VIEW;
+        $ozymandiasEvent->event_name = EventNameOzy::PAGE_VIEW;
         $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
 
-    private static function fromOzyEvent(EventBase $event) {
+    private static function fromOzyEvent(EventBaseOzy $event) {
         $ozymandiasEvent = new OzymandiasEvent();
         $ozymandiasEvent->event_time = time();
         
@@ -278,7 +281,7 @@ class OzymandiasEventMapper
         return $ozymandiasEvent;
     }
 
-    private static function fromEvent(EventBase $event) {
+    private static function fromEvent(EventBaseOzy $event) {
         $userData = new UserData($event->email, $event->user_data);
 
         $ozymandiasEvent = new OzymandiasEvent();
@@ -299,12 +302,12 @@ class OzymandiasEventMapper
 
 
 
-    public static function fromSubscriptionPaidEvent(SubscriptionPaidEvent $event)
+    public static function fromSubscriptionPaidEvent(SubscriptionPaidEventOzy $event)
     {
-        $customData = new SubscriptionPaidEventCustomData();
+        $customData = new SubscriptionPaidEventOzyCustomData();
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
-        $ozymandiasEvent->event_name = EventName::SUBSCRIPTION_PAID;
+        $ozymandiasEvent->event_name = EventNameOzy::SUBSCRIPTION_PAID;
         $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
 
@@ -320,167 +323,167 @@ class OzymandiasEventMapper
         return $ozymandiasEvent;
     }
 
-    public static function fromSubscriptionRefundEvent(SubscriptionRefundEvent $event)
+    public static function fromSubscriptionRefundEvent(SubscriptionRefundEventOzy $event)
     {
-        $customData = new SubscriptionRefundEventCustomData();
+        $customData = new SubscriptionRefundEventOzyCustomData();
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
-        $ozymandiasEvent->event_name = EventName::SUBSCRIPTION_REFUND;
+        $ozymandiasEvent->event_name = EventNameOzy::SUBSCRIPTION_REFUND;
         $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
 
-    public static function fromSubscriptionAlteredEvent(SubscriptionAlteredEvent $event)
+    public static function fromSubscriptionAlteredEvent(SubscriptionAlteredEventOzy $event)
     {
-        $customData = new SubscriptionAlteredEventCustomData();
+        $customData = new SubscriptionAlteredEventOzyCustomData();
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
-        $ozymandiasEvent->event_name = EventName::SUBSCRIPTION_ALTERED;
+        $ozymandiasEvent->event_name = EventNameOzy::SUBSCRIPTION_ALTERED;
         $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
 
-    public static function fromInvoiceCheckoutEvent(InvoiceCheckoutEvent $event)
+    public static function fromInvoiceCheckoutEvent(InvoiceCheckoutEventOzy $event)
     {
-        $customData = new InvoiceCheckoutEventCustomData();
+        $customData = new InvoiceCheckoutEventOzyCustomData();
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
-        $ozymandiasEvent->event_name = EventName::INVOICE_CHECKOUT;
+        $ozymandiasEvent->event_name = EventNameOzy::INVOICE_CHECKOUT;
         $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
 
-    public static function fromProductionOrderCreatedEvent(ProductionOrderCreatedEvent $event)
+    public static function fromProductionOrderCreatedEvent(ProductionOrderCreatedEventOzy $event)
     {
-        $customData = new ProductionOrderCreatedEventCustomData();
+        $customData = new ProductionOrderCreatedEventOzyCustomData();
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
-        $ozymandiasEvent->event_name = EventName::PRODUCTION_ORDER_CREATED;
+        $ozymandiasEvent->event_name = EventNameOzy::PRODUCTION_ORDER_CREATED;
         $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
 
-    public static function fromBillCreatedEvent(BillCreatedEvent $event)
+    public static function fromBillCreatedEvent(BillCreatedEventOzy $event)
     {
-        $customData = new BillCreatedEventCustomData();
+        $customData = new BillCreatedEventOzyCustomData();
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
-        $ozymandiasEvent->event_name = EventName::BILL_CREATED;
+        $ozymandiasEvent->event_name = EventNameOzy::BILL_CREATED;
         $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
 
-    public static function fromShippingCompanyRegisteredEvent(ShippingCompanyRegisteredEvent $event)
+    public static function fromShippingCompanyRegisteredEvent(ShippingCompanyRegisteredEventOzy $event)
     {
-        $customData = new ShippingCompanyRegisteredEventCustomData();
+        $customData = new ShippingCompanyRegisteredEventOzyCustomData();
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
-        $ozymandiasEvent->event_name = EventName::SHIPPING_COMPANY_REGISTERED;
+        $ozymandiasEvent->event_name = EventNameOzy::SHIPPING_COMPANY_REGISTERED;
         $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
 
-    public static function fromKitReadyEvent(KitReadyEvent $event)
+    public static function fromKitReadyEvent(KitReadyEventOzy $event)
     {
-        $customData = new KitReadyEventCustomData();
+        $customData = new KitReadyEventOzyCustomData();
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
-        $ozymandiasEvent->event_name = EventName::KIT_READY;
+        $ozymandiasEvent->event_name = EventNameOzy::KIT_READY;
         $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
 
-    public static function fromKitDeliveredEvent(KitDeliveredEvent $event)
+    public static function fromKitDeliveredEvent(KitDeliveredEventOzy $event)
     {
-        $customData = new KitDeliveredEventCustomData();
+        $customData = new KitDeliveredEventOzyCustomData();
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
-        $ozymandiasEvent->event_name = EventName::KIT_DELIVERED;
+        $ozymandiasEvent->event_name = EventNameOzy::KIT_DELIVERED;
         $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
 
-    public static function fromCallcenterContactEvent(CallcenterContactEvent $event)
+    public static function fromCallcenterContactEvent(CallcenterContactEventOzy $event)
     {
 
-        $customData = new CallcenterContactEventCustomData();
+        $customData = new CallcenterContactEventOzyCustomData();
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
-        $ozymandiasEvent->event_name = EventName::CALLCENTER_CONTACT;
+        $ozymandiasEvent->event_name = EventNameOzy::CALLCENTER_CONTACT;
         $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
 
-    public static function fromSubscriptionCanceledEvent(SubscriptionCanceledEvent $event)
+    public static function fromSubscriptionCanceledEvent(SubscriptionCanceledEventOzy $event)
     {
-        $customData = new SubscriptionCanceledEventCustomData();
+        $customData = new SubscriptionCanceledEventOzyCustomData();
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
-        $ozymandiasEvent->event_name = EventName::SUBSCRIPTION_CANCELED;
+        $ozymandiasEvent->event_name = EventNameOzy::SUBSCRIPTION_CANCELED;
         $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
 
-    public static function fromSubscriptionContinueEvent(SubscriptionContinueEvent $event)
+    public static function fromSubscriptionContinueEvent(SubscriptionContinueEventOzy $event)
     {
-        $customData = new SubscriptionContinueEventCustomData();
+        $customData = new SubscriptionContinueEventOzyCustomData();
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
-        $ozymandiasEvent->event_name = EventName::SUBSCRIPTION_CONTINUE;
+        $ozymandiasEvent->event_name = EventNameOzy::SUBSCRIPTION_CONTINUE;
         $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
 
-    public static function fromSignedAdoletaPlanEvent(SignedAdoletaPlanEvent $event)
+    public static function fromSignedAdoletaPlanEvent(SignedAdoletaPlanEventOzy $event)
     {
-        $customData = new SignedAdoletaPlanEventCustomData();
+        $customData = new SignedAdoletaPlanEventOzyCustomData();
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
-        $ozymandiasEvent->event_name = EventName::SIGNED_ADOLETA_PLAN;
+        $ozymandiasEvent->event_name = EventNameOzy::SIGNED_ADOLETA_PLAN;
         $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
 
-    public static function fromAdoletaRenewalEvent(AdoletaRenewalEvent $event)
+    public static function fromAdoletaRenewalEvent(AdoletaRenewalEventOzy $event)
     {
-        $customData = new AdoletaRenewalEventCustomData();
+        $customData = new AdoletaRenewalEventOzyCustomData();
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
-        $ozymandiasEvent->event_name = EventName::ADOLETA_RENEWAL;
+        $ozymandiasEvent->event_name = EventNameOzy::ADOLETA_RENEWAL;
         $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
 
-    public static function fromSignedLettersPlanEvent(SignedLettersPlanEvent $event)
+    public static function fromSignedLettersPlanEvent(SignedLettersPlanEventOzy $event)
     {
-        $customData = new SignedLettersPlanEventCustomData();
+        $customData = new SignedLettersPlanEventOzyCustomData();
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
-        $ozymandiasEvent->event_name = EventName::SIGNED_LETTERS_PLAN;
+        $ozymandiasEvent->event_name = EventNameOzy::SIGNED_LETTERS_PLAN;
         $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
     }
 
-    public static function fromImportEvent(ImportEvent $event)
+    public static function fromImportEvent(ImportEventOzy $event)
     {
-        $customData = new ImportEventCustomData();
+        $customData = new ImportEventOzyCustomData();
 
         $ozymandiasEvent = OzymandiasEventMapper::fromOzyEvent($event);
-        $ozymandiasEvent->event_name = EventName::IMPORT;
+        $ozymandiasEvent->event_name = EventNameOzy::IMPORT;
         $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
