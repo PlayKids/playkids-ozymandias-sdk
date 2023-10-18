@@ -22,12 +22,10 @@ namespace Leiturinha\Object;
  * @property string $child_name_1
  * @property string $child_gender_1
  * @property string $child_birthday_1
- * @property string $child_didatic_age_1
  *
  * @property string $child_name_2
  * @property string $child_gender_2
  * @property string $child_birthday_2
- * @property string $child_didatic_age_2
  *
  * @property string $address
  * @property string $address_line_2
@@ -55,11 +53,9 @@ class SubscriptionData
     public $child_name_1;
     public $child_gender_1;
     public $child_birthday_1;
-    public $child_didatic_age_1;
     public $child_name_2;
     public $child_gender_2;
     public $child_birthday_2;
-    public $child_didatic_age_2;
 
     public $address;
     public $address_line_2;

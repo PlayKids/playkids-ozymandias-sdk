@@ -11,7 +11,6 @@ class KinesisManager
     protected $kinesisClient;
 
     function __construct() {
-
         $this->kinesisClient = new KinesisClient([
             'version' => '2013-12-02',
             'region' => getenv('AWS_REGION'),
@@ -20,7 +19,6 @@ class KinesisManager
                 'secret' => getenv('AWS_SECRET_ACCESS_KEY_DEVELOP')
             ]
         ]);
-
     }
 
     /**
@@ -104,6 +102,12 @@ class KinesisManager
         switch ($platform) {
             case Platform::PLATFORM_OZYMANDIAS:
                 $kinesisStreamName = getenv('KINESIS_STREAM_NAME_OZYMANDIAS');
+                break;
+            case Platform::PLATFORM_FACEBOOK:
+                $kinesisStreamName = getenv('KINESIS_STREAM_NAME_FACEBOOK');
+                break;
+            case Platform::PLATFORM_SALESFORCE:
+                $kinesisStreamName = getenv('KINESIS_STREAM_NAME_SALESFORCE');
                 break;
         }
         $output = $this->kinesisClient

@@ -5,13 +5,13 @@ namespace Leiturinha\Object;
 /**
  * PurchaseEvent object
  *
- * @property double $value
+ * @property double $plan_price
  * @property string $currency
  */
 
-class PurchaseEvent extends EventBase
+class PurchaseEventOzy extends EventBaseOzy
 {
-    public $value;
+    public $plan_price;
     public $currency;
 
     public function validate()

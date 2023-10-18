@@ -2,18 +2,18 @@
 
 namespace Leiturinha\Object\Ozymandias;
 
-use Leiturinha\Object\AddPaymentInfoEvent;
-use Leiturinha\Object\AddToCartEvent;
-use Leiturinha\Object\InitiateCheckoutEvent;
-use Leiturinha\Object\PurchaseEvent;
+use Leiturinha\Object\AddPaymentInfoEventOzy;
+use Leiturinha\Object\AddToCartEventOzy;
+use Leiturinha\Object\InitiateCheckoutEventOzy;
+use Leiturinha\Object\PurchaseEventOzy;
 
 /**
  * Ozymandias Server Event Parameters
  *
- * @property EventName $event_name required
+ * @property EventNameOzy $event_name required
  * @property int $event_time UNIX timestamp required
  * @property UserData $user_data required
- * @property EventCustomData $custom_data
+ * @property EventOzyCustomData $custom_data
  * @property string $event_source_url
  * @property bool $opt_out
  * @property string $event_id
@@ -50,25 +50,25 @@ class OzymandiasEvent
     {
         // TODO: move UserData validations to specific classes
         if(isset($this->user_data)) {
-            if($this->custom_data instanceof InitiateCheckoutEvent) {
+            if($this->custom_data instanceof InitiateCheckoutEventOzy) {
                 if(!isset($this->user_data->client_user_agent) || !isset($this->user_data->client_ip_address)) {
                     throw new \InvalidArgumentException('client_user_agent and client_ip_address required');
                 }
             }
 
-            else if($this->custom_data instanceof AddToCartEvent) {
+            else if($this->custom_data instanceof AddToCartEventOzy) {
                 if(!isset($this->user_data->em) || !isset($this->user_data->ph)) {
                     throw new \InvalidArgumentException('client_user_agent and client_ip_address required');
                 }
             }
 
-            else if($this->custom_data instanceof PurchaseEvent) {
+            else if($this->custom_data instanceof PurchaseEventOzy) {
                 if(!isset($this->user_data->em) || !isset($this->user_data->ph)) {
                     throw new \InvalidArgumentException('client_user_agent and client_ip_address required');
                 }
             }
 
-            else if($this->custom_data instanceof AddPaymentInfoEvent) {
+            else if($this->custom_data instanceof AddPaymentInfoEventOzy) {
                 if(!isset($this->user_data->em) || !isset($this->user_data->ph)) {
                     throw new \InvalidArgumentException('client_user_agent and client_ip_address required');
                 }

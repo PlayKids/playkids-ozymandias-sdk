@@ -9,6 +9,7 @@ namespace Leiturinha\Object;
  * @property string $city
  * @property string $state
  * @property string $country
+ * @property string $language
  * @property string $zipcode
  * @property string $phone
  * @property string $phone_locale
@@ -21,6 +22,7 @@ class UserData
   public $city;
   public $state;
   public $country;
+  public $language;
   public $zipcode;
   public $phone;
   public $phone_locale;
