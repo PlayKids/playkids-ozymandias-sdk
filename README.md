@@ -43,11 +43,11 @@ Handler::receiveData($data);
 
 
 
-## Setup version 0.2
+## Setup version 0.3
 
 Add to your composer.json:
 
-**require**: _"playkids/playkids-ozymandias-sdk" : "^0.2"_
+**require**: _"playkids/playkids-ozymandias-sdk" : "^0.3"_
 
 **repositories**: _[{"type":"vcs","url":"https://github.com/PlayKids/playkids-ozymandias-sdk"}]_
  
@@ -69,7 +69,7 @@ EventsMapper::PageViewEvent([
 ## Usage - Option 2: using standalone
 
 ```php
-$event = new \Leiturinha\Object\PageViewEvent();
+$event = new \Leiturinha\Object\PageViewEventOzy();
 $event->event_id = "PageView_123456789";
 $event->email = "joaoteste@testejoao.com.br";
 $event->page_url = "https://leiturinha.com.br";
@@ -77,24 +77,43 @@ $event->page_name = "Cadastro";
 $event->channel = "Leiturinha";
 $event->user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Safari/537.36";
 
-\Leiturinha\Events\EventLaucher::firePageViewEvent($event);
+\Leiturinha\Events\EventLaucherOzy::firePageViewEvent($event);
 ```
 
 ## Usage classes 
 
 ```php
-use Leiturinha\Events\EventLaucher;
-use Leiturinha\Object\EventBase;
-use Leiturinha\Object\InitiateCheckoutEvent;
-use Leiturinha\Object\AddPaymentInfoEvent;
-use Leiturinha\Object\AddToCartEvent;
-use Leiturinha\Object\PurchaseEvent;
-use Leiturinha\Object\ChildrenRegisterEvent;
-use Leiturinha\Object\LeadFormEvent;
-use Leiturinha\Object\SimpleLeadRegisteredEvent;
-use Leiturinha\Object\LoginEvent;
-use Leiturinha\Object\PageViewEvent;
-use Leiturinha\Object\UserRegisterEvent;
-use Leiturinha\Object\AmbassadorInitiatedEvent;
+use Leiturinha\Events\EventLaucherOzy;
+use Leiturinha\Object\EventBaseOzy;
+use Leiturinha\Object\AddPaymentInfoEventOzy;
+use Leiturinha\Object\AddToCartEventOzy;
+use Leiturinha\Object\InitiateCheckoutEventOzy;
+use Leiturinha\Object\UserRegisterEventOzy;
+use Leiturinha\Object\ChildrenRegisterEventOzy;
+use Leiturinha\Object\LeadFormEventOzy;
+use Leiturinha\Object\SimpleLeadRegisteredEventOzy;
+use Leiturinha\Object\PurchaseEventOzy;
+use Leiturinha\Object\PageViewEventOzy;
+use Leiturinha\Object\LoginEventOzy;
 use Leiturinha\Object\UserData;
+
+use Leiturinha\Object\CallcenterContactEventOzy;
+use Leiturinha\Object\SubscriptionPaidEventOzy;
+use Leiturinha\Object\SubscriptionRefundEventOzy;
+use Leiturinha\Object\SubscriptionAlteredEventOzy;
+use Leiturinha\Object\InvoiceCheckoutEventOzy;
+use Leiturinha\Object\ProductionOrderCreatedEventOzy;
+use Leiturinha\Object\BillCreatedEventOzy;
+use Leiturinha\Object\ShippingCompanyRegisteredEventOzy;
+use Leiturinha\Object\KitReadyEventOzy;
+use Leiturinha\Object\KitDeliveredEventOzy;
+use Leiturinha\Object\SubscriptionCanceledEventOzy;
+use Leiturinha\Object\SubscriptionContinueEventOzy;
+use Leiturinha\Object\SignedAdoletaPlanEventOzy;
+use Leiturinha\Object\AdoletaRenewalEventOzy;
+use Leiturinha\Object\SignedLettersPlanEventOzy;
+use Leiturinha\Object\AmbassadorInitiatedEventOzy;
+use Leiturinha\Object\ImportEventOzy;
+
+use Leiturinha\Object\Enums\EventNameOzy;
 ```

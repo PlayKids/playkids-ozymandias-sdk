@@ -44,16 +44,7 @@ class KinesisManager
     {
         try {
 
-            // URL NGROK APONTANDO PARA DOCKER LOCAL DO OZYMANDIAS LOCAL
-            //$server = "http://d53b-177-16-64-206.ngrok.io";
-            //$header = "ngrok-skip-browser-warning: 1234";
-
-            // STAGE
-            // $server = "https://playkids-ozymandias-staging.api.leiturinha.com.br"; 
-            // $header = "";
-
-            // PROD
-            $server = "https://playkids-ozymandias.api.leiturinha.com.br";
+            $server = "";
             $header = "";
 
             $endpoint = "/v2/events";
