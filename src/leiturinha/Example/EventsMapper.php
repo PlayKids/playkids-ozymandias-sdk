@@ -5,7 +5,7 @@ namespace App\Mappers;
 use App\Models\Leiturinha\CartItems;
 use App\Models\Leiturinha\User;
 use Illuminate\Support\Facades\Log;
-use Leiturinha\Object\Enums\EventName;
+use Leiturinha\Object\Enums\EventNameOzy;
 use Leiturinha\Utils\UUIDGenerator;
 use Throwable;
 
@@ -13,19 +13,19 @@ class EventsMapper
 {
 
     /**
-     * Trigger LoginEvent to API Ozymandias
+     * Trigger InitiateCheckoutEvent to API Ozymandias
      *
      * @param array $data
      * @return void
      */
-    public static function InitiateCheckoutEvent(array $data): void
+    public static function InitiateCheckoutEventOzy(array $data): void
     {
-        $eventData = new \Leiturinha\Object\InitiateCheckoutEvent();
-        $eventData = self::fillBasicData($data, $eventData);
-        $eventData->event_id = EventName::INITIATE_CHECKOUT."_".$_SERVER["EVENT_ID"];
+        $eventData = new \Leiturinha\Object\InitiateCheckoutEventOzy();
+        $eventData = self::fillBasicDataOzy($data, $eventData);
+        $eventData->event_id = EventNameOzy::INITIATE_CHECKOUT."_".$_SERVER["EVENT_ID"];
 
         try {
-            \Leiturinha\Events\EventLaucher::fireInitiateCheckoutEvent($eventData);
+            \Leiturinha\Events\EventLaucherOzy::fireInitiateCheckoutEvent($eventData);
             Log::info('-- EventsMapper InitiateCheckoutEvent: '. json_encode($eventData, JSON_PRETTY_PRINT));  // USE ONLY FOR TESTING PURPOSE, NOT IN PRODUCTION
         } catch(Throwable $e) {
             Log::info("-- EventsMapper Error: InitiateCheckoutEvent, " . $e);  // USE ONLY FOR TESTING PURPOSE, NOT IN PRODUCTION
@@ -33,63 +33,22 @@ class EventsMapper
     }
 
     /**
-     * Trigger LoginEvent to API Ozymandias
+     * Trigger PurchaseEvent to API Ozymandias
      *
      * @param array $data
      * @return void
      */
-    public static function AddPaymentInfoEvent(array $data): void
+    public static function PurchaseEventOzy(array $data): void
     {
-
-        $eventData = new \Leiturinha\Object\AddPaymentInfoEvent();
-        $eventData = self::fillBasicData($data, $eventData);
-        $eventData->event_id = EventName::ADD_PAYMENT_INFO."_".$_SERVER["EVENT_ID"];
-
-        try {
-            \Leiturinha\Events\EventLaucher::fireAddPaymentInfoEvent($eventData);
-            Log::info('-- EventsMapper AddPaymentInfoEvent: '. json_encode($eventData, JSON_PRETTY_PRINT));  // USE ONLY FOR TESTING PURPOSE, NOT IN PRODUCTION
-        } catch(Throwable $e) {
-            Log::info("-- EventsMapper Error: AddPaymentInfoEvent, " . $e);  // USE ONLY FOR TESTING PURPOSE, NOT IN PRODUCTION
-        }
-    }
-
-    /**
-     * Trigger LoginEvent to API Ozymandias
-     *
-     * @param array $data
-     * @return void
-     */
-    public static function AddToCartEvent(array $data): void
-    {
-        $eventData = new \Leiturinha\Object\AddToCartEvent();
-        $eventData = self::fillBasicData($data, $eventData);
-        $eventData->event_id = EventName::ADD_TO_CART."_".$_SERVER["EVENT_ID"];
-
-        try {
-            \Leiturinha\Events\EventLaucher::fireAddToCartEvent($eventData);
-            Log::info('-- EventsMapper AddToCartEvent: '. json_encode($eventData, JSON_PRETTY_PRINT));  // USE ONLY FOR TESTING PURPOSE, NOT IN PRODUCTION
-        } catch(Throwable $e) {
-            Log::info("-- EventsMapper Error: AddToCartEvent, " . $e);  // USE ONLY FOR TESTING PURPOSE, NOT IN PRODUCTION
-        }
-    }
-
-    /**
-     * Trigger LoginEvent to API Ozymandias
-     *
-     * @param array $data
-     * @return void
-     */
-    public static function PurchaseEvent(array $data): void
-    {
-        $eventData = new \Leiturinha\Object\PurchaseEvent();
-        $eventData = self::fillBasicData($data, $eventData);
-        $eventData->event_id = EventName::PURCHASE."_".$_SERVER["EVENT_ID"];
+        $eventData = new \Leiturinha\Object\PurchaseEventOzy();
+        $eventData = self::fillBasicDataOzy($data, $eventData);
+        $eventData->event_id = EventNameOzy::PURCHASE."_".$_SERVER["EVENT_ID"];
 
         $eventData->plan_price = $data['plan_price'];
         $eventData->currency = 'BRL';
 
         try {
-            \Leiturinha\Events\EventLaucher::firePurchaseEvent($eventData);
+            \Leiturinha\Events\EventLaucherOzy::firePurchaseEvent($eventData);
             Log::info('-- EventsMapper PurchaseEvent: '. json_encode($eventData, JSON_PRETTY_PRINT));  // USE ONLY FOR TESTING PURPOSE, NOT IN PRODUCTION
         } catch(Throwable $e) {
             Log::info("-- EventsMapper Error: PurchaseEvent, " . $e);  // USE ONLY FOR TESTING PURPOSE, NOT IN PRODUCTION
@@ -97,156 +56,22 @@ class EventsMapper
     }
 
     /**
-     * Trigger LoginEvent to API Ozymandias
+     * Trigger PageViewEvent to API Ozymandias
      *
      * @param array $data
      * @return void
      */
-    public static function ChildrenRegisterEvent(array $data): void
+    public static function PageViewEventOzy(array $data): void
     {
-        $eventData = new \Leiturinha\Object\ChildrenRegisterEvent();
-        $eventData = self::fillBasicData($data, $eventData);
-        $eventData->event_id = EventName::CHILDREN_REGISTER."_".$_SERVER["EVENT_ID"];
+        $eventData = new \Leiturinha\Object\PageViewEventOzy();
+        $eventData = self::fillBasicDataOzy($data, $eventData);
+        $eventData->event_id = EventNameOzy::PAGE_VIEW."_".$_SERVER["EVENT_ID"];
 
         try {
-            \Leiturinha\Events\EventLaucher::fireChildrenRegisterEvent($eventData);
-            Log::info('-- EventsMapper ChildrenRegisterEvent: '. json_encode($eventData, JSON_PRETTY_PRINT));  // USE ONLY FOR TESTING PURPOSE, NOT IN PRODUCTION
-        } catch(Throwable $e) {
-            Log::info("-- EventsMapper Error: ChildrenRegisterEvent, " . $e);  // USE ONLY FOR TESTING PURPOSE, NOT IN PRODUCTION
-        }
-    }
-
-    /**
-     * Trigger LoginEvent to API Ozymandias
-     *
-     * @param array $data
-     * @return void
-     */
-    public static function LeadFormEvent(array $data): void
-    {
-        $eventData = new \Leiturinha\Object\LeadFormEvent();
-        $eventData = self::fillBasicData($data, $eventData);
-        $eventData->event_id = EventName::LEAD_FORM."_".$_SERVER["EVENT_ID"];
-
-        $eventData->src = $data['src'];
-        $eventData->name = $data['name'];
-        $eventData->phone = $data['phone'];
-        $eventData->campaign = $data['campaign'];
-        $eventData->device = $data['device'];
-        $eventData->country = $data['country'];
-        $eventData->language = $data['language'];
-        $eventData->date = $data['date'];
-
-        try {
-            \Leiturinha\Events\EventLaucher::fireLeadFormEvent($eventData);
-            Log::info('-- EventsMapper LeadFormEvent: '. json_encode($eventData, JSON_PRETTY_PRINT));  // USE ONLY FOR TESTING PURPOSE, NOT IN PRODUCTION
-        } catch(Throwable $e) {
-            Log::info("-- EventsMapper Error: LeadFormEvent, " . $e);  // USE ONLY FOR TESTING PURPOSE, NOT IN PRODUCTION
-        }
-    }
-
-    /**
-     * Trigger LoginEvent to API Ozymandias
-     *
-     * @param array $data
-     * @return void
-     */
-    public static function SimpleLeadRegisteredEvent(array $data): void
-    {
-        $eventData = new \Leiturinha\Object\SimpleLeadRegisteredEvent();
-        $eventData = self::fillBasicData($data, $eventData);
-        $eventData->event_id = EventName::SIMPLE_LEAD_REGISTERED."_".$_SERVER["EVENT_ID"];
-
-        $eventData->src = $data['src'];
-        $eventData->name = $data['name'];
-        $eventData->date = $data['date'];
-        $eventData->phone = $data['phone'];
-
-        try {
-            \Leiturinha\Events\EventLaucher::fireSimpleLeadRegisteredEvent($eventData);
-            Log::info('-- EventsMapper SimpleLeadRegisteredEvent: '. json_encode($eventData, JSON_PRETTY_PRINT));  // USE ONLY FOR TESTING PURPOSE, NOT IN PRODUCTION
-        } catch(Throwable $e) {
-            Log::info("-- EventsMapper Error: SimpleLeadRegisteredEvent, " . $e);  // USE ONLY FOR TESTING PURPOSE, NOT IN PRODUCTION
-        }
-    }
-
-    /**
-     * Trigger LoginEvent to API Ozymandias
-     *
-     * @param array $data
-     * @return void
-     */
-    public static function LoginEvent(array $data): void
-    {
-        $eventData = new \Leiturinha\Object\LoginEvent();
-        $eventData = self::fillBasicData($data, $eventData);
-        $eventData->event_id = EventName::LOGIN."_".$_SERVER["EVENT_ID"];
-
-        try {
-            \Leiturinha\Events\EventLaucher::fireLoginEvent($eventData);
-            Log::info('-- EventsMapper LoginEvent: '. json_encode($eventData, JSON_PRETTY_PRINT));  // USE ONLY FOR TESTING PURPOSE, NOT IN PRODUCTION
-        } catch(Throwable $e) {
-            Log::info("-- EventsMapper Error: LoginEvent, " . $e);  // USE ONLY FOR TESTING PURPOSE, NOT IN PRODUCTION
-        }
-    }
-
-    /**
-     * Trigger LoginEvent to API Ozymandias
-     *
-     * @param array $data
-     * @return void
-     */
-    public static function PageViewEvent(array $data): void
-    {
-        $eventData = new \Leiturinha\Object\PageViewEvent();
-        $eventData = self::fillBasicData($data, $eventData);
-        $eventData->event_id = EventName::PAGE_VIEW."_".$_SERVER["EVENT_ID"];
-
-        try {
-            \Leiturinha\Events\EventLaucher::firePageViewEvent($eventData);
+            \Leiturinha\Events\EventLaucherOzy::firePageViewEvent($eventData);
             Log::info('-- EventsMapper PageViewEvent: '. json_encode($eventData, JSON_PRETTY_PRINT));  // USE ONLY FOR TESTING PURPOSE, NOT IN PRODUCTION
         } catch(Throwable $e) {
             Log::info("-- EventsMapper Error: PageViewEvent, " . $e);  // USE ONLY FOR TESTING PURPOSE, NOT IN PRODUCTION
-        }
-    }
-
-    /**
-     * Trigger UserRegisterEvent to API Ozymandias
-     *
-     * @param array $data
-     * @return void
-     */
-    public static function UserRegisterEvent(array $data): void
-    {
-        $eventData = new \Leiturinha\Object\UserRegisterEvent();
-        $eventData = self::fillBasicData($data, $eventData);
-        $eventData->event_id = EventName::USER_REGISTER."_".$_SERVER["EVENT_ID"];
-
-        try {
-            \Leiturinha\Events\EventLaucher::fireUserRegisterEvent($eventData);
-            Log::info('-- EventsMapper UserRegisterEvent: '. json_encode($eventData, JSON_PRETTY_PRINT));  // USE ONLY FOR TESTING PURPOSE, NOT IN PRODUCTION
-        } catch(Throwable $e) {
-            Log::info("-- EventsMapper Error: UserRegisterEvent, " . $e);  // USE ONLY FOR TESTING PURPOSE, NOT IN PRODUCTION
-        }
-    }
-
-    /**
-     * Trigger AmbassadorInitiatedEvent to API Ozymandias
-     *
-     * @param array $data
-     * @return void
-     */
-    public static function AmbassadorInitiatedEvent(array $data): void
-    {
-        $eventData = new \Leiturinha\Object\AmbassadorInitiatedEvent();
-        $eventData = self::fillBasicData($data, $eventData);
-        $eventData->event_id = EventName::AMBASSADOR_INITIATED."_".$_SERVER["EVENT_ID"];
-
-        try {
-            \Leiturinha\Events\EventLaucher::fireAmbassadorInitiatedEven($eventData);
-            Log::info('-- EventsMapper AmbassadorInitiatedEvent: '. json_encode($eventData, JSON_PRETTY_PRINT));  // USE ONLY FOR TESTING PURPOSE, NOT IN PRODUCTION
-        } catch (Throwable $e) {
-            Log::info("-- EventsMapper Error: AmbassadorInitiatedEvent, " . $e);  // USE ONLY FOR TESTING PURPOSE, NOT IN PRODUCTION
         }
     }
 
@@ -255,10 +80,10 @@ class EventsMapper
      * Fill Basic Data about event to API Ozymandias
      *
      * @param array $data
-     * @param EvenBase $eventData
+     * @param EvenBaseOzy $eventData
      * @return eventData
     */
-    public static function fillBasicData(array $data, \Leiturinha\Object\EventBase $eventData)
+    public static function fillBasicDataOzy(array $data, \Leiturinha\Object\EventBaseOzy $eventData)
     {
 
         //GENERATE CURRENT EVENT ID
