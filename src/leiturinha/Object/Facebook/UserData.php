@@ -67,7 +67,7 @@ class UserData
 
     public $lead_id;
 
-    function __construct(string $email, ?ObjectUserData $eventData) {
+    function __construct(?string $email, ?ObjectUserData $eventData) {
         if(!isset($email)) return;
 
         $this->em = $this->normalizeHashString($email);
