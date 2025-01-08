@@ -216,7 +216,7 @@ class OzymandiasEventMapper
     private static function fromOzyEvent(EventBaseOzy $event) {
         $ozymandiasEvent = new OzymandiasEvent();
         $ozymandiasEvent->event_time = time();
-        
+
         $ozymandiasEvent->event_id = $event->event_id;
         $ozymandiasEvent->action_source = ActionSource::WEBSITE;
         $ozymandiasEvent->contact_key = $event->email;
@@ -239,11 +239,9 @@ class OzymandiasEventMapper
             $ozymandiasEvent->browser_string = "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/109.0.0.0 Safari\/537.36";
         }
 
-        if (isset($_SERVER['REMOTE_ADDR'])) {
-            $ozymandiasEvent->client_ip_address = $_SERVER['REMOTE_ADDR'];
-        } else {
-            $ozymandiasEvent->client_ip_address = "127.0.0.1";
-        }
+
+        $ozymandiasEvent->client_ip_address = self::getClientIp();
+
 
         //     $ozymandiasEvent->data = $ozymandias->handleCRMData($data, $data['page']);
 
@@ -264,12 +262,12 @@ class OzymandiasEventMapper
         //     }
 
         $ozymandiasEvent->user_data = $event->user_data;
-        
+
         $ozymandiasEvent->custom_data = isset($event->custom_data) ? $event->custom_data : "";
-        
-        
-        $ozymandiasEvent->subscription = isset($event->cart_item) ? $event->cart_item : ""; 
-        
+
+
+        $ozymandiasEvent->subscription = isset($event->cart_item) ? $event->cart_item : "";
+
 
         //TODO removeNulls e validate deveriam estar aqui ??
         //$ozymandiasEvent->removeNulls();
@@ -487,6 +485,13 @@ class OzymandiasEventMapper
         $ozymandiasEvent->custom_data = $event->custom_data ? $event->custom_data : $customData;
 
         return $ozymandiasEvent;
+    }
+
+    private static function getClientIp() {
+        return $_SERVER['HTTP_X_FORWARDED_FOR']
+            ?? $_SERVER['REMOTE_ADDR']
+            ?? $_SERVER['HTTP_CLIENT_IP']
+            ?? '';
     }
 
 }
