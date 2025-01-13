@@ -235,6 +235,13 @@ class OzymandiasEventMapper
 
         $ozymandiasEvent->client_ip_address = self::getClientIp();
 
+        if(!empty($event->fbc)){
+            $ozymandiasEvent->fbc = $event->fbc;
+        }
+        if(!empty($event->fbp)){
+            $ozymandiasEvent->fbp = $event->fbp;
+        }
+
         //     $ozymandiasEvent->data = $ozymandias->handleCRMData($data, $data['page']);
 
         //     if ($event === 'lead-form') {
